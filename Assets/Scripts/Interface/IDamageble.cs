@@ -1,4 +1,4 @@
-﻿namespace Asteroids
+﻿namespace Assets.Scripts.Interface
 {
     interface IDamageble
     {

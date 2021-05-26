@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 
 
-namespace Asteroids
+namespace Asteroids.Dataset
 {
     [CreateAssetMenu(fileName = "Data", menuName = "Data/Data")]
     public class Data : ScriptableObject
     {
         [SerializeField] private DataPlayer _player;
         [SerializeField] private DataBullet _bullet;
+        [SerializeField] private DataEnemies _enemies;
 
         public DataPlayer Player
         {
@@ -21,7 +22,11 @@ namespace Asteroids
             set => _bullet = value;
         }
 
-
+        public DataEnemies Enemies
+        {
+            get => _enemies;
+            set => _enemies = value;
+        }
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Asteroids
+namespace Asteroids.Dataset
 {
     [CreateAssetMenu(fileName = "Player", menuName = "Data/PlayerSettings")]
     public class DataPlayer : ScriptableObject

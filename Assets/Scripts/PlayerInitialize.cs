@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Asteroids.Enemy;
+using Asteroids.Dataset;
 
 
 namespace Asteroids
@@ -22,7 +24,10 @@ namespace Asteroids
             var moveTranform = new AccelerationMove(player, _data.Player.Speed, _data.Player.Acceleration);
             var rotation = new RotationShip(player);
 
+            Enemy.Asteroid.CreateAsteroidEnemy(new Health(_data.Enemies.Hp, _data.Enemies.Hp));
+
             //var bullet = GameObject.Instantiate(_data.Bullet.Bullet, player.position, player.rotation);
+
 
             _inputController = new InputController(moveTranform, rotation, camera, player, _data.Bullet);
         }

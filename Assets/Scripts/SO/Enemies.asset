@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e68ae128f37e2054d9de165ece2f105b, type: 3}
+  m_Name: Enemies
+  m_EditorClassIdentifier: 
+  Speed: 5
+  Hp: 100
+  AsteroidPrefab: {fileID: 2647134724813261269, guid: 985af8365c0178f49b66439e5a680ced,
+    type: 3}
+  MeteoritPrefab: {fileID: 4122338383948897342, guid: e6c7ad74f14da7b4b9c9b62532111d33,
+    type: 3}

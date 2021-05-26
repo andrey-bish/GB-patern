@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.Interface
+namespace Asteroids.Interface
 {
     public interface IHit
     {

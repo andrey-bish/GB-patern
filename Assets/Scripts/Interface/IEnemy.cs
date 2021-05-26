@@ -1,9 +1,12 @@
 ﻿using System;
 
-namespace Asteroids
+namespace Asteroids.Interface
 {
-    public interface IEnemy
+    /// <summary>
+    /// Представляет интерфейс для врагов
+    /// </summary>
+    interface IEnemy
     {
-        event Action<int> OnTriggerEnterChange; 
+        void TestingMethod();
     }
 }

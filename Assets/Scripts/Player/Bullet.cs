@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
-using Assets.Scripts.Enemy;
-using Assets.Scripts.Interface;
+using Asteroids.Enemy;
+using Asteroids.Interface;
 
-namespace Assets.Scripts
+namespace Asteroids.Scripts
 {
     public class Bullet : MonoBehaviour
     {
         //public float Damage = 20.0f;
-        public Meteors meteors;
+        public Meteors Meteors;
+        public Asteroid Asteroid;
+
         private void Start()
         {
             var listenerHitShowDamage = new ListenerHitShowDamage();
-            listenerHitShowDamage.Add(meteors);
+            listenerHitShowDamage.Add(Meteors);
+            listenerHitShowDamage.Add(Asteroid);
         }
 
 
@@ -19,13 +22,8 @@ namespace Assets.Scripts
         {
             if (collision.gameObject.TryGetComponent<IHit>(out var enemy))
             {
-                Debug.Log("damage");
                 enemy.Hit(20.0f);
             }
         }
-        //public void OnTriggerEnter2D(Collider2D col)
-        //{
-            
-        //}
     }
 }

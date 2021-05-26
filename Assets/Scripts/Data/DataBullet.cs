@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Asteroids
+namespace Asteroids.Dataset
 {
     [CreateAssetMenu(fileName = "Bullet", menuName = "Data/BulletSettings")]
     public class DataBullet : ScriptableObject

@@ -1,25 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Assets.Scripts.Interface;
+﻿using UnityEngine;
+using Asteroids.Interface;
 using System;
 
-namespace Assets.Scripts.Enemy
+namespace Asteroids.Enemy
 {
-    public class Meteors : MonoBehaviour, IDamageble, IHit
+    public class Meteors : MonoBehaviour, IHit
     {
+        public float Hp;
+
         public event Action<float> OnHitChange = delegate(float f) { };
-
-
-        public void Damage(float damagePoint)
-        {
-            Debug.Log($"Damage {damagePoint}");
-        }
 
         public void Hit(float damage)
         {
-            Debug.Log("quqa");
+            Debug.Log($"Damage {damage}");
             OnHitChange.Invoke(damage);
+
+
+            Hp -= damage;
+            if(Hp <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
 
 

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using Assets.Scripts.Interface;
+using Asteroids.Interface;
 
 
-namespace Assets.Scripts
+namespace Asteroids.Scripts
 {
     class ListenerHitShowDamage
     {

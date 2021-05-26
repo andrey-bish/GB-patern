@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using Assets.Scripts.Interface;
-using Assets.Scripts.Enemy;
+using Asteroids.Interface;
+using Asteroids.Enemy;
 
-namespace Assets.Scripts
+namespace Asteroids.Scripts
 {
     class ObserverTest
     {

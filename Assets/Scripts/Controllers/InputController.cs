@@ -43,15 +43,13 @@ namespace Asteroids
             {
                 var bullet = GameObject.Instantiate(_dataBullet.Bullet, _barrel.position, _barrel.rotation);
                 bullet.AddForce(_barrel.up * _dataBullet.Force);
-                
-                
             }
         }
 
 
         public void Updateble(float deltaTime)
         {
-                CheckInputKey(deltaTime);            
+            CheckInputKey(deltaTime);            
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Asteroids
             _data = data;
         }
 
+        //убрать отсюда _inputController, перенести в отдельный контроллер, камеру инициализировать в GM.
+        //player убрать в отдельный класс, чтобы передесть _inputContorller'у в GM
         public void InitializeObj()
         {
             var player = GameObject.Instantiate(_data.Player.PlayerPrefab).transform;

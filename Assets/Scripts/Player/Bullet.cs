@@ -1,22 +1,31 @@
 ﻿using UnityEngine;
-using Asteroids.Enemy;
 using Asteroids.Interface;
+using Asteroids.Dataset;
 
-namespace Asteroids.Scripts
+
+namespace Asteroids
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviour, IInitialization, ICleanup
     {
-        //public float Damage = 20.0f;
-        public Meteors Meteors;
-        public Asteroid Asteroid;
+        private DataEnemies _dataEnemies;
+        private ListenerHitShowDamage _listenerHitShowDamage;
 
-        private void Start()
+        public Bullet(DataEnemies dataEnemies)
         {
-            var listenerHitShowDamage = new ListenerHitShowDamage();
-            listenerHitShowDamage.Add(Meteors);
-            listenerHitShowDamage.Add(Asteroid);
+            _dataEnemies = dataEnemies;
         }
 
+        public void Initialization()
+        {
+            _listenerHitShowDamage = new ListenerHitShowDamage();
+            _listenerHitShowDamage.Add(_dataEnemies.AsteroidPref);
+        }
+
+        public void Cleanup()
+        {
+            _listenerHitShowDamage = new ListenerHitShowDamage();
+            _listenerHitShowDamage.Remove(_dataEnemies.AsteroidPref);
+        }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {

@@ -2,7 +2,7 @@
 using Asteroids.Interface;
 
 
-namespace Asteroids.Scripts
+namespace Asteroids
 {
     class ListenerHitShowDamage
     {

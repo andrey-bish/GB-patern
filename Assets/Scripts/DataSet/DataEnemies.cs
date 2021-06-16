@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Asteroids.Enemy;
 
 namespace Asteroids.Dataset
 {
@@ -9,5 +10,6 @@ namespace Asteroids.Dataset
         public float Hp;
         public GameObject AsteroidPrefab;
         public GameObject MeteoritPrefab;
+        public EnemyView AsteroidPref;
     }
 }

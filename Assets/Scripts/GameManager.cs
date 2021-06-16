@@ -17,8 +17,13 @@ namespace Asteroids
         private void Start()
         {
             var initialize = new PlayerInitialize(_data);
+            var enemyFactory = new EnemiesFactory(_data.Enemies);
+            var enemyInitializator = new EnemyInitializator(enemyFactory);
+            var bulletInitializator = new Bullet(_data.Enemies);
             _mainControllers = new MainControllers();
             _mainControllers.Add(initialize);
+            _mainControllers.Add(enemyInitializator);
+            _mainControllers.Add(bulletInitializator);
             _mainControllers.Initialization();
         }
 

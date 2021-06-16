@@ -18,3 +18,5 @@ MonoBehaviour:
     type: 3}
   MeteoritPrefab: {fileID: 4122338383948897342, guid: e6c7ad74f14da7b4b9c9b62532111d33,
     type: 3}
+  AsteroidPref: {fileID: 4190709091634287241, guid: a67971fb041c8bc44bafc6fda4ca5427,
+    type: 3}

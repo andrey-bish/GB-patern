@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
 using Asteroids.Interface;
 using Asteroids.Dataset;
+using Asteroids.ObjectPool;
 
 
 namespace Asteroids
 {
     public class Bullet : MonoBehaviour, IInitialization, ICleanup
     {
+        private float _damage;
+
+        public float Damage => _damage;
+
         private DataEnemies _dataEnemies;
         private ListenerHitShowDamage _listenerHitShowDamage;
+
 
         public Bullet(DataEnemies dataEnemies)
         {
@@ -17,22 +23,48 @@ namespace Asteroids
 
         public void Initialization()
         {
-            _listenerHitShowDamage = new ListenerHitShowDamage();
-            _listenerHitShowDamage.Add(_dataEnemies.AsteroidPref);
+            //_listenerHitShowDamage = new ListenerHitShowDamage();
+            //_listenerHitShowDamage.Add(_dataEnemies.AsteroidPrefab);
+            //_listenerHitShowDamage.Add(_dataEnemies.CometPrefab);
         }
 
         public void Cleanup()
         {
-            _listenerHitShowDamage = new ListenerHitShowDamage();
-            _listenerHitShowDamage.Remove(_dataEnemies.AsteroidPref);
+            //_listenerHitShowDamage = new ListenerHitShowDamage();
+            //_listenerHitShowDamage.Remove(_dataEnemies.AsteroidPrefab);
+            //_listenerHitShowDamage.Remove(_dataEnemies.CometPrefab);
         }
 
+        private void Destroy()
+        {
+            BulletObjectPool.ReturnToPool(this);
+        }
+
+        //прокинуть сюда вместе с созданием буллета - дамаг и в этот метод его положить
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.TryGetComponent<IHit>(out var enemy))
             {
-                enemy.Hit(20.0f);
+                enemy.Hit(_damage);
+                Destroy();
             }
+        }
+
+        private void OnBecameInvisible()
+        {
+            Destroy();
+        }
+
+        //public static Bullet CreateBullet(GameObject gameObject)
+        //{
+        //    return Instantiate(gameObject).AddComponent<Bullet>();
+        //}
+
+        public static Bullet CreateBullet(GameObject gameObject, float damage)
+        {
+            var bullet = Instantiate(gameObject).AddComponent<Bullet>();
+            bullet._damage = damage;
+            return bullet;
         }
     }
 }

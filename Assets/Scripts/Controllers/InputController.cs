@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 using Asteroids.Dataset;
+using Asteroids.ObjectPool;
+using Asteroids.Interface;
 
 
 namespace Asteroids
 {
-    internal class InputController : IUpdateble
+    internal class InputController: IShooting
     {
         private Ship _ship;
         private Camera _camera;
         private DataBullet _dataBullet;
-        private Transform _barrel;
+        private Transform _barrelPlayer;
+        private float _lastFireTime = 0.0f;
 
         public InputController(AccelerationMove moveTransform, RotationShip rotation, Camera camera, Transform player, DataBullet dataBullet)
         {
             var ship = new Ship(moveTransform, rotation);
-            _barrel = player.GetChild(0);
+            _barrelPlayer = player.GetChild(0);
             _ship = ship;
             _camera = camera;
             _dataBullet = dataBullet;
@@ -41,15 +44,18 @@ namespace Asteroids
 
             if(Input.GetButtonDown("Fire1"))
             {
-                var bullet = GameObject.Instantiate(_dataBullet.Bullet, _barrel.position, _barrel.rotation);
-                bullet.AddForce(_barrel.up * _dataBullet.Force);
+                Shooting();
             }
         }
 
-
-        public void Updateble(float deltaTime)
+        public void Shooting()
         {
-            CheckInputKey(deltaTime);            
+            if (_lastFireTime + _dataBullet.FireCooldown < Time.time)
+            {
+                _lastFireTime = Time.time;
+                var bullet = BulletObjectPool.GetBullet(_dataBullet.BulletPref, _barrelPlayer.position, _dataBullet.Damage);
+                bullet.AddForce(_barrelPlayer.up * _dataBullet.Force, ForceMode2D.Impulse);
+            }
         }
     }
 }

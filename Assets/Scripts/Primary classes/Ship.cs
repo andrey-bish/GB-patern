@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Asteroids.Interface;
+
 
 namespace Asteroids
 {

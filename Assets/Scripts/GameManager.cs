@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Asteroids.Dataset;
 using Asteroids.Enemy;
+using Asteroids.Fabrics;
 
 
 namespace Asteroids
@@ -17,8 +18,8 @@ namespace Asteroids
         private void Start()
         {
             var initialize = new PlayerInitialize(_data);
-            var enemyFactory = new EnemiesFactory(_data.Enemies);
-            var enemyInitializator = new EnemyInitializator(enemyFactory);
+            var enemyFactory = new AsteroidFactory(_data);
+            var enemyInitializator = new EnemyInitializator(enemyFactory, _data, _data.Enemies.Speed, _data.Enemies.EnemyShipPrefab.transform);
             var bulletInitializator = new Bullet(_data.Enemies);
             _mainControllers = new MainControllers();
             _mainControllers.Add(initialize);

@@ -8,8 +8,8 @@ namespace Asteroids.Dataset
     {
         public float Speed;
         public float Hp;
-        public GameObject AsteroidPrefab;
-        public GameObject MeteoritPrefab;
-        public EnemyView AsteroidPref;
+        public CometView CometPrefab;
+        public AsteroidView AsteroidPrefab;
+        public EnemyShipView EnemyShipPrefab;
     }
 }

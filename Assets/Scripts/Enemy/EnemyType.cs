@@ -4,6 +4,7 @@
     {
         None = 0,
         Asteroid = 1,
-        Meteorit = 2
+        Meteorit = 2,
+        EnemyShip = 3
     }
 }

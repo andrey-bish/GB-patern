@@ -5,8 +5,7 @@ namespace Asteroids.Interface
     /// <summary>
     /// Представляет интерфейс для врагов
     /// </summary>
-    interface IEnemy
+    public interface IEnemy
     {
-        void TestingMethod();
     }
 }

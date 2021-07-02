@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Enemies
   m_EditorClassIdentifier: 
   Speed: 5
-  Hp: 100
-  AsteroidPrefab: {fileID: 2647134724813261269, guid: 985af8365c0178f49b66439e5a680ced,
+  Hp: 40
+  CometPrefab: {fileID: -7940315395216756793, guid: e6c7ad74f14da7b4b9c9b62532111d33,
     type: 3}
-  MeteoritPrefab: {fileID: 4122338383948897342, guid: e6c7ad74f14da7b4b9c9b62532111d33,
+  AsteroidPrefab: {fileID: 4190709091634287241, guid: a67971fb041c8bc44bafc6fda4ca5427,
     type: 3}
-  AsteroidPref: {fileID: 4190709091634287241, guid: a67971fb041c8bc44bafc6fda4ca5427,
+  EnemyShipPrefab: {fileID: 8278984936737916160, guid: a40ed37f7c227c24894589412acffe3a,
     type: 3}

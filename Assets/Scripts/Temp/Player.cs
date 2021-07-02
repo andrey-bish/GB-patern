@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using Asteroids.Interface;
+using System;
+using Asteroids.Enemy;
 
 namespace Asteroids
 {
-    internal sealed class Player : MonoBehaviour
+    public sealed class Player : MonoBehaviour, IHit
     {
         [SerializeField] private float _speed;
         [SerializeField] private float _acceleration;
@@ -12,7 +15,9 @@ namespace Asteroids
         [SerializeField] private float _force;
         private Camera _camera;
         private Ship _ship;
+        private Health _health;
 
+        public event Action<float> OnHitChange = delegate (float f) { };
 
         private void Start()
         {
@@ -46,15 +51,33 @@ namespace Asteroids
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        //private void OnCollisionEnter2D(Collision2D other)
+        //{
+        //    if (_hp <= 0)
+        //    {
+        //        Destroy(gameObject);
+        //    }
+        //    else
+        //    {
+        //        _hp--;
+        //    }
+        //}
+
+        public void Hit(float damage)
         {
-            if (_hp <= 0)
+            OnHitChange.Invoke(damage);
+            Damage(damage);
+        }
+        public void Damage(float point)
+        {
+            _health.Damages(point);
+        }
+
+        public void SetHealth(Health health)
+        {
+            if (_health == null)
             {
-                Destroy(gameObject);
-            }
-            else
-            {
-                _hp--;
+                _health = health;
             }
         }
     }

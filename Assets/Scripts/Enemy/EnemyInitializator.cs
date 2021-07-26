@@ -1,37 +1,25 @@
 ﻿using Asteroids.Interface;
 using Asteroids.ObjectPool;
 using Asteroids.Dataset;
-using UnityEngine;
+
 
 namespace Asteroids.Enemy
 {
-    //Можно переименовать в enemycontroller
-    class EnemyInitializator : MoveTransform, IInitialization, IUpdateble, IFixUpdateble
+    class EnemyInitializator : IInitialization
     {
-
-        #region Fields
-
         private readonly IEnemiesFactory _enemiesFactory;
+
+        private MainControllers _mainControllers;
         private readonly Data _data;
-        private Transform _enemyShipPosition;
-        private Transform _playerShipTranform;
-        private EnemyShipView _enemyShip;
-        private EnemyShipMove _enemyShipMove;
-        private EnemyShipRotation _enemyShipRotation;
-        private EnemyShipShooting _enemyShipShooting;
-        private readonly float _speed;
-
-        #endregion
 
 
-        public EnemyInitializator(IEnemiesFactory enemiesFactory, Data data, float speed, Transform enemyShipPosition) : base(enemyShipPosition, speed)
+        public EnemyInitializator(IEnemiesFactory enemiesFactory, MainControllers mainControllers, Data data)
         {
             _enemiesFactory = enemiesFactory;
+            _mainControllers = mainControllers;
             _data = data;
-            _speed = speed;
-            _enemyShipPosition = enemyShipPosition;
-            _playerShipTranform = _data.Player.PlayerPrefab.transform;
         }
+
         public void Initialization()
         {
             //Создание противника через статический метод
@@ -41,37 +29,15 @@ namespace Asteroids.Enemy
             //_enemiesFactory.Create(new Health(40.0f));
 
             //Создание противника в PoolObject'е
+            CreateEnemiesAndAddToObjectPool();
+            new EnemyActionController(_mainControllers, _data);
+        }
+
+        private void CreateEnemiesAndAddToObjectPool()
+        {
             EnemyObjectPool.GetEnemy<AsteroidView>(_data);
             EnemyObjectPool.GetEnemy<CometView>(_data);
-            var enemy = EnemyObjectPool.GetEnemy<EnemyShipView>(_data);
-
-            var playerShip = GameObject.FindGameObjectWithTag("Player");
-
-            _enemyShip = enemy;
-            _enemyShipMove = new EnemyShipMove(_enemyShip.transform, playerShip.transform, _speed);
-            _enemyShipRotation = new EnemyShipRotation(_enemyShip.transform);
-            new Ship(_enemyShipMove, _enemyShipRotation);
-            _enemyShipShooting = new EnemyShipShooting(_enemyShip.transform, playerShip.transform, _data.Bullet);
-        }
-
-        public void Updateble(float deltaTime)
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                EnemyObjectPool.GetEnemy<AsteroidView>(_data);
-            }
-        }
-
-        public void FixUpdateble(float deltaTime)
-        {
-            var currectPlayerShipPosition = GameObject.FindGameObjectWithTag("Player");
-            
-            if(_enemyShip.gameObject.activeSelf)
-            {
-                _enemyShipMove.EnemyShipPursuit(deltaTime);
-                _enemyShipRotation.Rotation(currectPlayerShipPosition.transform.position - _enemyShip.transform.position);
-                _enemyShipShooting.Shooting();
-            }
+            EnemyObjectPool.GetEnemy<EnemyShipView>(_data);
         }
     }
 }

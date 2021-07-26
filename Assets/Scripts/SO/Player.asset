@@ -17,3 +17,5 @@ MonoBehaviour:
   Hp: 100
   PlayerPrefab: {fileID: 4039993112835970684, guid: 36a44f61cd8030949a2bea95668ff51a,
     type: 3}
+  PlayerPrefabScript: {fileID: 8672201786504361787, guid: d25e2ae89f4ff2f4ca9fb08fa6ea29ee,
+    type: 3}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c0d0c3f85d977439caa2e89579002a, type: 3}
   m_Name: Bullet
   m_EditorClassIdentifier: 
-  Force: 2
+  Force: 3.5
   BulletPref: {fileID: 8974991651741479658, guid: a745dd606b94f0e4ea1288097c3c31e1,
     type: 3}
   Damage: 20
-  FireCooldown: 0.5
+  FireCooldown: 1

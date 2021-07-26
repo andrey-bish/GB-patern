@@ -17,15 +17,9 @@ namespace Asteroids
 
         private void Start()
         {
-            var initialize = new PlayerInitialize(_data);
-            var enemyFactory = new AsteroidFactory(_data);
-            var enemyInitializator = new EnemyInitializator(enemyFactory, _data, _data.Enemies.Speed, _data.Enemies.EnemyShipPrefab.transform);
-            var bulletInitializator = new Bullet(_data.Enemies);
             _mainControllers = new MainControllers();
-            _mainControllers.Add(initialize);
-            _mainControllers.Add(enemyInitializator);
-            _mainControllers.Add(bulletInitializator);
-            _mainControllers.Initialization();
+            var InitializationGame = new GameInitialization();
+            InitializationGame.StartGame(_data, _mainControllers);
         }
 
         private void Update()

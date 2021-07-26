@@ -27,7 +27,7 @@ namespace Asteroids.Fabrics
             enemy.SetHealth(health);
             health.Death += enemy.Death;
 
-            new EnemiesSpawn(_dataPlayer).EnemyFlightDirection(enemy);
+            new EnemiesSpawn(_dataPlayer).RandomSpawnLocation(enemy);
 
             return enemy;
         }

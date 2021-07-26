@@ -7,6 +7,7 @@ namespace Asteroids.Dataset
     public class DataEnemies : ScriptableObject
     {
         public float Speed;
+        public float ImpulseStrenge;
         public float Hp;
         public CometView CometPrefab;
         public AsteroidView AsteroidPrefab;

@@ -1,26 +1,44 @@
 ﻿using UnityEngine;
-using Asteroids.Dataset;
-using Asteroids.ObjectPool;
 using Asteroids.Interface;
+using Asteroids.Dataset;
+using Asteroids.Modification;
 
 
 namespace Asteroids
 {
-    internal class InputController: IShooting
+    internal class InputController: IUpdateble
     {
-        private Ship _ship;
-        private Camera _camera;
-        private DataBullet _dataBullet;
-        private Transform _barrelPlayer;
-        private float _lastFireTime = 0.0f;
+        #region Field
 
-        public InputController(AccelerationMove moveTransform, RotationShip rotation, Camera camera, Transform player, DataBullet dataBullet)
+        private readonly Ship _ship;
+        private readonly Camera _camera;
+        private  IShooting _weapon;
+        private readonly MainControllers _mainControllers;
+        private readonly Data _data;
+        
+        #endregion
+
+
+        #region Constructor
+
+        public InputController(AccelerationMove moveTransform, RotationShip rotation, Camera camera, IShooting weapon, MainControllers mainControllers, Data data)
         {
-            var ship = new Ship(moveTransform, rotation);
-            _barrelPlayer = player.GetChild(0);
-            _ship = ship;
+            _ship = new Ship(moveTransform, rotation);
             _camera = camera;
-            _dataBullet = dataBullet;
+            _weapon = weapon;
+            _mainControllers = mainControllers;
+            _mainControllers.Add(this);
+            _data = data;
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        public void SetWeapon(IShooting shooting)
+        {
+            _weapon = shooting;
         }
 
         public void CameraCursorTracking()
@@ -44,18 +62,21 @@ namespace Asteroids
 
             if(Input.GetButtonDown("Fire1"))
             {
-                Shooting();
+                _weapon.Shooting();
             }
         }
 
-        public void Shooting()
+        #endregion
+
+
+        #region UnityMethods
+
+        public void Updateble(float deltaTime)
         {
-            if (_lastFireTime + _dataBullet.FireCooldown < Time.time)
-            {
-                _lastFireTime = Time.time;
-                var bullet = BulletObjectPool.GetBullet(_dataBullet.BulletPref, _barrelPlayer.position, _dataBullet.Damage);
-                bullet.AddForce(_barrelPlayer.up * _dataBullet.Force, ForceMode2D.Impulse);
-            }
+            CameraCursorTracking();
+            CheckInputKey(deltaTime);
         }
+
+        #endregion
     }
 }

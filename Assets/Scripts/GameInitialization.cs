@@ -1,7 +1,7 @@
-﻿using Asteroids.Dataset;
+﻿using System.Collections.Generic;
+using Asteroids.Dataset;
 using Asteroids.Enemy;
 using Asteroids.Fabrics;
-using System.Collections.Generic;
 
 
 namespace Asteroids
@@ -11,7 +11,7 @@ namespace Asteroids
         public void StartGame(Data data, MainControllers mainControllers)
         {
             List<IInitialization> InitializeObjectList = new List<IInitialization>();
-            InitializeObjectList.Add(PlayerInitialization(data));
+            InitializeObjectList.Add(PlayerInitialization(data, mainControllers));
             InitializeObjectList.Add(EnemyInitialization(data, mainControllers));
             InitializeObjectList.Add(BulletInitialization(data));
 
@@ -20,9 +20,9 @@ namespace Asteroids
             mainControllers.Initialization();
         }
 
-        private PlayerInitialize PlayerInitialization(Data data)
+        private PlayerInitialize PlayerInitialization(Data data, MainControllers mainControllers)
         {
-            return new PlayerInitialize(data);
+            return new PlayerInitialize(data, mainControllers);
         }
         
         private EnemyInitializator EnemyInitialization(Data data, MainControllers mainControllers)

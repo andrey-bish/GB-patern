@@ -8,7 +8,6 @@ namespace Asteroids.Dataset
         public float Speed;
         public float Acceleration;
         public float Hp;
-        public GameObject PlayerPrefab;
-        public PlayerView PlayerPrefabScript;
+        public PlayerView PlayerPrefab;
     }
 }

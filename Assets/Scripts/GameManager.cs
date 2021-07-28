@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using Asteroids.Dataset;
-using Asteroids.Enemy;
-using Asteroids.Fabrics;
 
 
 namespace Asteroids

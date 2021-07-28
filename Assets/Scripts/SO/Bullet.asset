@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c0d0c3f85d977439caa2e89579002a, type: 3}
   m_Name: Bullet
   m_EditorClassIdentifier: 
-  Force: 3.5
-  BulletPref: {fileID: 8974991651741479658, guid: a745dd606b94f0e4ea1288097c3c31e1,
+  AudioSourcePlayer: {fileID: 5063545398776472676, guid: d25e2ae89f4ff2f4ca9fb08fa6ea29ee,
     type: 3}
-  Damage: 20
+  BulletPrefab: {fileID: 8974991651741479658, guid: a745dd606b94f0e4ea1288097c3c31e1,
+    type: 3}
+  OneShotAudioClip: {fileID: 8300000, guid: 49cbac8224a222c4f990d329a008ed6c, type: 3}
+  Force: 3.5
+  Damage: 10
   FireCooldown: 1
+  MufflerPrefab: {fileID: 4334160267942961262, guid: d62dbcfc871dd8d459cc6cca9126fbc0,
+    type: 3}
+  OneShotMufflerAudioClip: {fileID: 0}
+  VolumeFireOnMuffler: 0
+  DamageWhitMuffler: 10

@@ -6,7 +6,7 @@ using Asteroids.ObjectPool;
 
 namespace Asteroids
 {
-    public class Bullet : MonoBehaviour, IInitialization, ICleanup
+    public class Bullet : MonoBehaviour, IInitialization, ICleanup, IAmmunition
     {
         private float _damage;
 
@@ -43,8 +43,9 @@ namespace Asteroids
         //прокинуть сюда вместе с созданием буллета - дамаг и в этот метод его положить
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.TryGetComponent<IHit>(out var enemy))
+            if (collision.gameObject.TryGetComponent<IHit>(out var enemy) || collision.gameObject.CompareTag("Player")) 
             {
+                Debug.Log("chago");
                 enemy.Hit(_damage);
                 Destroy();
             }
@@ -54,11 +55,6 @@ namespace Asteroids
         {
             Destroy();
         }
-
-        //public static Bullet CreateBullet(GameObject gameObject)
-        //{
-        //    return Instantiate(gameObject).AddComponent<Bullet>();
-        //}
 
         public static Bullet CreateBullet(GameObject gameObject, float damage)
         {

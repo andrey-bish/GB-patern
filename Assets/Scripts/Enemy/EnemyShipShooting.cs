@@ -33,7 +33,7 @@ namespace Asteroids.Enemy
                 if (_lastFireTime + _dataBullet.FireCooldown < Time.time)
                 {
                     _lastFireTime = Time.time;
-                    var bullet = BulletObjectPool.GetBullet(_dataBullet.BulletPref, _enemyShipBarrel.position, _dataBullet.Damage);
+                    var bullet = BulletObjectPool.GetBullet(_dataBullet.BulletPrefab, _enemyShipBarrel.position, _dataBullet.Damage);
                     bullet.AddForce(_enemyShipBarrel.up * _dataBullet.Force, ForceMode2D.Impulse);
                 }
             }

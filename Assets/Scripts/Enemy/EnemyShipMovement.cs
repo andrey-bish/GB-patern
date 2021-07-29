@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Asteroids.Interface;
+using Asteroids.Dataset;
 
 
 namespace Asteroids.Enemy
@@ -10,18 +11,22 @@ namespace Asteroids.Enemy
 
         private Transform _playerShipTransform;
         private Transform _enemyShipTransform;
+
         private Vector3 _move;
 
-        public EnemyShipMovement(Transform enemyShipTransform, Transform playerShipTransform, float speed)
+        private float _rangeAttack;
+
+        public EnemyShipMovement(Transform enemyShipTransform, Transform playerShipTransform, Data data)
         {
             _enemyShipTransform = enemyShipTransform;
             _playerShipTransform = playerShipTransform;
-            Speed = speed;
+            Speed = data.Enemies.Speed;
+            _rangeAttack = data.Enemies.RangeAtack;
         }
 
         public void Move(float horizontal, float vertical, float deltaTime)
         {
-            if ((_playerShipTransform.position - _enemyShipTransform.position).sqrMagnitude >= 2.0f)
+            if ((_playerShipTransform.position - _enemyShipTransform.position).sqrMagnitude >= _rangeAttack)
             {
                 var speed = deltaTime * Speed;
                 _move.Set(horizontal * speed, vertical * speed, 0.0f);

@@ -20,7 +20,5 @@ namespace Asteroids.Dataset
         public AudioClip OneShotMufflerAudioClip;
         public float VolumeFireOnMuffler;
         public float DamageWhitMuffler;
-        
-
     }
 }

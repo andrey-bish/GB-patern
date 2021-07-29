@@ -18,10 +18,13 @@ MonoBehaviour:
     type: 3}
   OneShotAudioClip: {fileID: 8300000, guid: 49cbac8224a222c4f990d329a008ed6c, type: 3}
   Force: 3.5
-  Damage: 10
+  Damage: 20
   FireCooldown: 1
+  RangeAtack: 2
   MufflerPrefab: {fileID: 4334160267942961262, guid: d62dbcfc871dd8d459cc6cca9126fbc0,
     type: 3}
-  OneShotMufflerAudioClip: {fileID: 0}
+  OneShotMufflerAudioClip: {fileID: 8300000, guid: 49cbac8224a222c4f990d329a008ed6c,
+    type: 3}
   VolumeFireOnMuffler: 0
   DamageWhitMuffler: 10
+  RangeAtackWithMuffler: 5

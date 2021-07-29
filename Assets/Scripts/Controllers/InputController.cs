@@ -6,22 +6,24 @@ using Asteroids.Modification;
 
 namespace Asteroids
 {
-    internal class InputController: IUpdateble
+    internal class InputController: IUpdateble, IInitialization
     {
         #region Field
 
         private readonly Ship _ship;
         private readonly Camera _camera;
-        private  IShooting _weapon;
+        private IWeapon _weapon;
         private readonly MainControllers _mainControllers;
         private readonly Data _data;
+        private ActionWithMuffler _actionWithMuffler;
+        private Transform _playerTranform;
         
         #endregion
 
 
         #region Constructor
 
-        public InputController(AccelerationMove moveTransform, RotationShip rotation, Camera camera, IShooting weapon, MainControllers mainControllers, Data data)
+        public InputController(AccelerationMove moveTransform, RotationShip rotation, Camera camera, IWeapon weapon, MainControllers mainControllers, Data data, Transform playerTranform)
         {
             _ship = new Ship(moveTransform, rotation);
             _camera = camera;
@@ -29,6 +31,7 @@ namespace Asteroids
             _mainControllers = mainControllers;
             _mainControllers.Add(this);
             _data = data;
+            _playerTranform = playerTranform;
         }
 
         #endregion
@@ -36,18 +39,23 @@ namespace Asteroids
 
         #region Methods
 
-        public void SetWeapon(IShooting shooting)
+        //public void SetWeapon(IShooting shooting)
+        //{
+        //    _weapon = shooting;
+        //}
+
+        private void InteractionWithMuffler()
         {
-            _weapon = shooting;
+            _actionWithMuffler.InstallationRemovalMuffler(_data, _playerTranform, _weapon);
         }
 
-        public void CameraCursorTracking()
+        private void CameraCursorTracking()
         {
             var direction = Input.mousePosition - _camera.WorldToScreenPoint(_camera.transform.position);
             _ship.Rotation(direction);
         }
 
-        public void CheckInputKey(float deltaTime)
+        private void CheckInputKey(float deltaTime)
         {
             _ship.Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), deltaTime);
             if(Input.GetKeyDown(KeyCode.LeftShift))
@@ -64,6 +72,10 @@ namespace Asteroids
             {
                 _weapon.Shooting();
             }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                InteractionWithMuffler();
+            }
         }
 
         #endregion
@@ -76,6 +88,12 @@ namespace Asteroids
             CameraCursorTracking();
             CheckInputKey(deltaTime);
         }
+
+        public void Initialization()
+        {
+            _actionWithMuffler = new ActionWithMuffler();
+        }
+
 
         #endregion
     }

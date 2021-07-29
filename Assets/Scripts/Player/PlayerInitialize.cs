@@ -9,15 +9,13 @@ namespace Asteroids
 {
     public class PlayerInitialize:  IInitialization, IUpdateble
     {
-        private Data _data;
-        //private InputController _inputController;
         private MainControllers _mainControllers;
-        private Weapon _weapon;
-        private ModificationWeapon _modificationWeapon;
-
+        //private InputController _inputController;
+        private IWeapon _weapon;
+        private Data _data;
+        
         private Transform _playerTranform;
 
-        private bool isMuffler = false;
 
         public PlayerInitialize(Data data, MainControllers mainControllers)
         {
@@ -32,25 +30,7 @@ namespace Asteroids
 
         public void Updateble(float deltaTime)
         {
-            //_inputController.CheckInputKey(deltaTime);
-            //_inputController.CameraCursorTracking();
-            if(Input.GetKeyDown(KeyCode.F))
-            {
-                if (!isMuffler)
-                {
-                    isMuffler = !isMuffler;
-
-                    var muffler = new Muffler(_data.Bullet.OneShotMufflerAudioClip, _data.Bullet.VolumeFireOnMuffler, _playerTranform, _data.Bullet.MufflerPrefab);
-
-                    _modificationWeapon = new ModificationMuffler(_data.Bullet, muffler, _playerTranform);
-                    _modificationWeapon.ApplyModification(_weapon);
-                }
-                else
-                {
-                    isMuffler = !isMuffler;
-                    _modificationWeapon.CancelModification(_weapon);
-                }
-            }
+            
         }
 
         //убрать отсюда _inputController, перенести в отдельный контроллер, камеру инициализировать в GM.
@@ -71,7 +51,7 @@ namespace Asteroids
 
             _weapon = new Weapon(_data, _playerTranform);
 
-            var inputController = new InputController(moveTranform, rotation, camera, _weapon, _mainControllers, _data);
+            var inputController = new InputController(moveTranform, rotation, camera, _weapon, _mainControllers, _data, _playerTranform);
 
             //inputController.SetWeapon(modificationWeapon);
 

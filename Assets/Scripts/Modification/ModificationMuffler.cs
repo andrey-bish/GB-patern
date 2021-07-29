@@ -7,12 +7,22 @@ namespace Asteroids.Modification
 {
     sealed class ModificationMuffler : ModificationWeapon
     {
+
+        #region Fields
+
         private readonly AudioSource _audioSource;
-        private readonly IMuffler _muffler;
         private readonly Transform _playerTranform;
-        private GameObject _mufflerGO;
-        private readonly float _damage;
         private readonly DataBullet _dataBullet;
+        private readonly IMuffler _muffler;
+
+        private GameObject _mufflerGO;
+
+        private readonly float _damage;
+
+        #endregion
+
+
+        #region Constructor
 
         public ModificationMuffler(DataBullet dataBullet, IMuffler muffler, Transform playerTranform)
         {
@@ -23,24 +33,35 @@ namespace Asteroids.Modification
             _damage = _dataBullet.DamageWhitMuffler;
         }
 
-        protected override Weapon AddModification(Weapon weapon)
+        #endregion
+
+
+        #region Methods
+
+        protected override IWeapon AddModification(IWeapon weapon)
         {
             _mufflerGO = Object.Instantiate(_muffler.MufflerInstance, _playerTranform.Find("Barrel").position, _playerTranform.rotation);
             _mufflerGO.transform.parent = _playerTranform;
             _audioSource.volume = _muffler.VolumeFireOnMuffler;
-            weapon.SetAudioClip(_muffler.AudioClipMuffler);
-            weapon.SetDamage(_damage);
-            weapon.SetBarrelPosition(_mufflerGO.transform.Find("ShotLocation"));
+            SetNewParameters(weapon, _muffler.AudioClipMuffler, _damage, _mufflerGO.transform.Find("ShotLocation"));
             return weapon;
         }
 
-        protected override Weapon ResetModification(Weapon weapon)
+        protected override IWeapon ResetModification(IWeapon weapon)
         {
             Object.Destroy(_mufflerGO);
-            weapon.DefaultAudioClip(_dataBullet.OneShotAudioClip);
-            weapon.DefaultDamage(_dataBullet.Damage);
-            weapon.DefaultBarrelPosition(_playerTranform.Find("Barrel"));
+            SetNewParameters(weapon, _dataBullet.OneShotAudioClip, _dataBullet.Damage, _playerTranform.Find("Barrel"));
             return weapon;
         }
+
+        private void SetNewParameters(IWeapon weapon, AudioClip audioClip, float damage, Transform shotLocation)
+        {
+            weapon.SetAudioClip(audioClip);
+            weapon.SetDamage(damage);
+            weapon.SetBarrelPosition(shotLocation);
+        }
+
+        #endregion
+
     }
 }

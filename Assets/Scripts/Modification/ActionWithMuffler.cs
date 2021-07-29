@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Asteroids.Dataset;
+using Asteroids.Interface;
 
 
 namespace Asteroids.Modification
@@ -10,18 +11,18 @@ namespace Asteroids.Modification
 
         private bool isMuffler = false;
 
-        public void Doit(Data data, Transform playerTranform, Weapon weapon)
+        public void InstallationRemovalMuffler(Data data, Transform playerTranform, IWeapon weapon)
         {
             SetResetMuffler(data, playerTranform, weapon);
         }
 
-        private void SetResetMuffler(Data data, Transform playerTranform, Weapon weapon)
+        private void SetResetMuffler(Data data, Transform playerTranform, IWeapon weapon)
         {
             if (!isMuffler)
             {
                 isMuffler = !isMuffler;
 
-                var muffler = new Muffler(data.Bullet.OneShotMufflerAudioClip, data.Bullet.VolumeFireOnMuffler, playerTranform, data.Bullet.MufflerPrefab);
+                var muffler = new Muffler(data.Bullet.OneShotMufflerAudioClip, playerTranform, data.Bullet.MufflerPrefab, data.Bullet.VolumeFireOnMuffler);
 
                 _modificationWeapon = new ModificationMuffler(data.Bullet, muffler, playerTranform);
                 _modificationWeapon.ApplyModification(weapon);

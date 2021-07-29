@@ -3,14 +3,17 @@ using Asteroids.Interface;
 using Asteroids.Dataset;
 using Asteroids.ObjectPool;
 
+
 namespace Asteroids
 {
-    class Weapon : IShooting
+    class Weapon : IWeapon
     {
         private DataBullet _dataBullet;
         private Transform _barrelPlayer;
         private AudioClip _audioClip;
         private readonly AudioSource _audioSource;
+
+        private float _damage;
 
         private float _lastFireTime = 0.0f;
 
@@ -20,6 +23,7 @@ namespace Asteroids
             _barrelPlayer = playerTransform.Find("Barrel");
             _audioSource = data.Bullet.AudioSourcePlayer;
             _audioClip = data.Bullet.OneShotAudioClip;
+            _damage = data.Bullet.Damage;
         }
 
         public void SetAudioClip(AudioClip audioClip)
@@ -34,22 +38,7 @@ namespace Asteroids
 
         public void SetDamage(float damage)
         {
-            _dataBullet.Damage = damage;
-        }
-
-        public void DefaultBarrelPosition(Transform barrelPosition)
-        {
-            _barrelPlayer = barrelPosition;
-        }
-
-        public void DefaultAudioClip(AudioClip audioClip)
-        {
-            _audioClip = audioClip;
-        }
-
-        public void DefaultDamage(float damage)
-        {
-            _dataBullet.Damage = damage;
+            _damage = damage;
         }
 
         public void Shooting()
@@ -57,10 +46,11 @@ namespace Asteroids
             if (_lastFireTime + _dataBullet.FireCooldown < Time.time)
             {
                 _lastFireTime = Time.time;
-                var bullet = BulletObjectPool.GetBullet(_dataBullet.BulletPrefab, _barrelPlayer.position, _dataBullet.Damage);
+                var bullet = BulletObjectPool.GetBullet(_dataBullet.BulletPrefab, _barrelPlayer.position, _damage);
                 bullet.AddForce(_barrelPlayer.up * _dataBullet.Force, ForceMode2D.Impulse);
                 _audioSource.PlayOneShot(_audioClip);
             }
         }
+
     }
 }

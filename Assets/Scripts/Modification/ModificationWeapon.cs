@@ -5,17 +5,17 @@ namespace Asteroids.Modification
 {
     abstract class ModificationWeapon : IShooting
     {
-        private Weapon _weapon;
+        private IWeapon _weapon;
 
-        protected abstract Weapon AddModification(Weapon weapon);
-        protected abstract Weapon ResetModification(Weapon weapon);
+        protected abstract IWeapon AddModification(IWeapon weapon);
+        protected abstract IWeapon ResetModification(IWeapon weapon);
 
-        public void ApplyModification(Weapon weapon)
+        public void ApplyModification(IWeapon weapon)
         {
             _weapon = AddModification(weapon);
         }
 
-        public void CancelModification(Weapon weapon)
+        public void CancelModification(IWeapon weapon)
         {
             _weapon = ResetModification(weapon);
         }

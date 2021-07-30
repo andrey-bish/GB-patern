@@ -10,14 +10,17 @@ namespace Asteroids
     {
         #region Field
 
-        private readonly Ship _ship;
-        private readonly Camera _camera;
-        private IWeapon _weapon;
         private readonly MainControllers _mainControllers;
+        private readonly Transform _playerTranform;
+        private readonly Camera _camera;
+        private readonly Ship _ship;
         private readonly Data _data;
+
+        private ActionWithLaserAim _actionWithLaserAim;
         private ActionWithMuffler _actionWithMuffler;
-        private Transform _playerTranform;
-        
+       
+        private IWeapon _weapon;
+
         #endregion
 
 
@@ -37,16 +40,37 @@ namespace Asteroids
         #endregion
 
 
-        #region Methods
+        #region UnityMethods
 
-        //public void SetWeapon(IShooting shooting)
-        //{
-        //    _weapon = shooting;
-        //}
+        public void Updateble(float deltaTime)
+        {
+            CameraCursorTracking();
+            CheckInputKey(deltaTime);
+        }
+
+        public void Initialization()
+        {
+            _actionWithLaserAim = new ActionWithLaserAim(_playerTranform, _mainControllers);
+            _actionWithMuffler = new ActionWithMuffler();
+        }
+
+        #endregion
+
+
+        #region Methods
 
         private void InteractionWithMuffler()
         {
+            //Вот так глушитель можно надеть, но вот снять его уже не получится
+            //new ActionWithMuffler().InstallationRemovalMuffler(_data, _playerTranform, _weapon);
+
+            //А так уже всё нормально работает
             _actionWithMuffler.InstallationRemovalMuffler(_data, _playerTranform, _weapon);
+        }
+
+        private void InteractionWithLaserAim(Material viewLaserAim)
+        {
+            _actionWithLaserAim.ActionsOnTheLaserAim(_data.Weapon, _weapon, viewLaserAim);
         }
 
         private void CameraCursorTracking()
@@ -58,17 +82,17 @@ namespace Asteroids
         private void CheckInputKey(float deltaTime)
         {
             _ship.Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), deltaTime);
-            if(Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 _ship.AddAcceleration();
             }
 
-            if(Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 _ship.RemoveAcceleration();
             }
 
-            if(Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {
                 _weapon.Shooting();
             }
@@ -76,24 +100,28 @@ namespace Asteroids
             {
                 InteractionWithMuffler();
             }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                _actionWithLaserAim.CheckStatusLaserAim();
+            }
+            if(Input.GetKeyDown(KeyCode.I))
+            {
+                //симуляция залочки стрельбы
+                _data.Weapon.IsWeaponLocked = !_data.Weapon.IsWeaponLocked;
+                _weapon.SetWeaponLockeD(_data.Weapon.IsWeaponLocked);
+            }
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                //симуляция залочки прицела
+                _actionWithLaserAim.IsLockedAim = !_actionWithLaserAim.IsLockedAim;
+                _actionWithLaserAim.IsAim = true;
+            }
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+                //симуляция подбора и потери лазерного прицела
+                InteractionWithLaserAim(_data.Weapon.RedLaserAim);
+            }
         }
-
-        #endregion
-
-
-        #region UnityMethods
-
-        public void Updateble(float deltaTime)
-        {
-            CameraCursorTracking();
-            CheckInputKey(deltaTime);
-        }
-
-        public void Initialization()
-        {
-            _actionWithMuffler = new ActionWithMuffler();
-        }
-
 
         #endregion
     }

@@ -16,7 +16,7 @@ namespace Asteroids
             InitializeObjectList.Add(EnemyInitialization(data, mainControllers));
             InitializeObjectList.Add(BulletInitialization(data));
 
-            AddingInMainController(InitializeObjectList, mainControllers);
+            AddInMainController(InitializeObjectList, mainControllers);
 
             mainControllers.Initialization();
         }
@@ -36,7 +36,7 @@ namespace Asteroids
             return new Bullet(data.Enemies);
         }
 
-        private void AddingInMainController(List<IInitialization> InitializeObjectList, MainControllers mainControllers)
+        private void AddInMainController(List<IInitialization> InitializeObjectList, MainControllers mainControllers)
         {
             foreach(IInitialization InitializeObject in InitializeObjectList)
             {

@@ -8,7 +8,7 @@ namespace Asteroids.Enemy
 {
     class EnemyShipShooting: IShooting
     {
-        private readonly DataBullet _dataBullet;
+        private readonly DataWeapon _dataBullet;
 
         private Transform _enemyShipTransform;
         private Transform _playerShipTransform;
@@ -18,7 +18,7 @@ namespace Asteroids.Enemy
         private float _rangeAttack;
 
 
-        public EnemyShipShooting(Transform enemyShipTransform, Transform playerShipTransform, DataBullet dataBullet, float rangeAttack)
+        public EnemyShipShooting(Transform enemyShipTransform, Transform playerShipTransform, DataWeapon dataBullet, float rangeAttack)
         {
             _enemyShipTransform = enemyShipTransform;
             _playerShipTransform = playerShipTransform;

@@ -2,20 +2,18 @@
 using Asteroids.Enemy;
 using Asteroids.Dataset;
 using Asteroids.Interface;
-using Asteroids.Modification;
-
 
 namespace Asteroids
 {
-    public class PlayerInitialize:  IInitialization, IUpdateble
+    public class PlayerInitialize: IInitialization, IUpdateble
     {
         private MainControllers _mainControllers;
         //private InputController _inputController;
+        private LineRenderer _lineRenderer;
         private IWeapon _weapon;
         private Data _data;
         
         private Transform _playerTranform;
-
 
         public PlayerInitialize(Data data, MainControllers mainControllers)
         {
@@ -30,7 +28,6 @@ namespace Asteroids
 
         public void Updateble(float deltaTime)
         {
-            
         }
 
         //убрать отсюда _inputController, перенести в отдельный контроллер, камеру инициализировать в GM.
@@ -42,6 +39,7 @@ namespace Asteroids
             health.Death += player.Death;
 
             _playerTranform = player.transform;
+            _lineRenderer = _playerTranform.GetComponent<LineRenderer>();
 
             var camera = Camera.main;
             camera.transform.parent = _playerTranform;
@@ -52,10 +50,6 @@ namespace Asteroids
             _weapon = new Weapon(_data, _playerTranform);
 
             var inputController = new InputController(moveTranform, rotation, camera, _weapon, _mainControllers, _data, _playerTranform);
-
-            //inputController.SetWeapon(modificationWeapon);
-
-
         }
     }   
 }

@@ -12,7 +12,7 @@ namespace Asteroids.Modification
 
         private readonly AudioSource _audioSource;
         private readonly Transform _playerTranform;
-        private readonly DataBullet _dataBullet;
+        private readonly DataWeapon _dataBullet;
         private readonly IMuffler _muffler;
 
         private GameObject _mufflerGO;
@@ -24,7 +24,7 @@ namespace Asteroids.Modification
 
         #region Constructor
 
-        public ModificationMuffler(DataBullet dataBullet, IMuffler muffler, Transform playerTranform)
+        public ModificationMuffler(DataWeapon dataBullet, IMuffler muffler, Transform playerTranform)
         {
             _dataBullet = dataBullet;
             _audioSource = _dataBullet.AudioSourcePlayer;

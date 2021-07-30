@@ -11,12 +11,9 @@ namespace Asteroids.Interface
 
         void SetDamage(float damage);
 
+        void SetAimLaser(Material aimLaserMaterial);
 
-        //void DefaultBarrelPosition(Transform barrelPosition);
-
-        //void DefaultAudioClip(AudioClip audioClip);
-
-        //void DefaultDamage(float damage);
+        void SetWeaponLockeD(bool isWeaponLocked);
 
     }
 }

@@ -46,7 +46,7 @@ namespace Asteroids.Enemy
             new EnemyController(new ImpulsiveMovement(comet.transform, _playerShipTranform, _data.Enemies.ImpulseStrenge)).Move();
 
             _enemyController = new EnemyController(new EnemyShipMovement(_enemyShipTranform, _playerShipTranform, _data), new EnemyShipRotation(_enemyShipTranform),
-                new EnemyShipShooting(_enemyShipTranform, _playerShipTranform, _data.Bullet, _data.Enemies.RangeAtack));
+                new EnemyShipShooting(_enemyShipTranform, _playerShipTranform, _data.Weapon, _data.Enemies.RangeAtack));
         }
 
         #endregion

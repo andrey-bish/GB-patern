@@ -52,7 +52,6 @@ namespace Asteroids.ObjectPool
 
             if(enemy == null)
             {
-                Debug.Log("Empty enemy. Create new enemy");
                 enemy = CreateEnemy(type);
                 _enemyCollection[type].Add(enemy);
             }

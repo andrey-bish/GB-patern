@@ -3,17 +3,22 @@ using Asteroids.Enemy;
 using Asteroids.Dataset;
 using Asteroids.Interface;
 
-
 namespace Asteroids
 {
-    public class PlayerInitialize:  IInitialization, IUpdateble
+    public class PlayerInitialize: IInitialization, IUpdateble
     {
+        private MainControllers _mainControllers;
+        //private InputController _inputController;
+        private LineRenderer _lineRenderer;
+        private IWeapon _weapon;
         private Data _data;
-        private InputController _inputController;
+        
+        private Transform _playerTranform;
 
-        public PlayerInitialize(Data data)
+        public PlayerInitialize(Data data, MainControllers mainControllers)
         {
             _data = data;
+            _mainControllers = mainControllers;
         }
 
         public void Initialization()
@@ -23,30 +28,28 @@ namespace Asteroids
 
         public void Updateble(float deltaTime)
         {
-            _inputController.CheckInputKey(deltaTime);
-            _inputController.CameraCursorTracking();
         }
 
         //убрать отсюда _inputController, перенести в отдельный контроллер, камеру инициализировать в GM.
         //player убрать в отдельный класс, чтобы передесть _inputContorller'у в GM
         public void InitializeObj(Health health)
         {
-            var player = Object.Instantiate(_data.Player.PlayerPrefabScript);
+            var player = Object.Instantiate(_data.Player.PlayerPrefab);
             player.SetHealth(health);
             health.Death += player.Death;
 
-            var playerTransform = player.transform;
+            _playerTranform = player.transform;
+            _lineRenderer = _playerTranform.GetComponent<LineRenderer>();
+
             var camera = Camera.main;
-            camera.transform.parent = playerTransform;
+            camera.transform.parent = _playerTranform;
 
-            var moveTranform = new AccelerationMove(playerTransform, _data.Player.Speed, _data.Player.Acceleration);
-            var rotation = new RotationShip(playerTransform);
+            var moveTranform = new AccelerationMove(_playerTranform, _data.Player.Speed, _data.Player.Acceleration);
+            var rotation = new RotationShip(_playerTranform);
 
+            _weapon = new Weapon(_data, _playerTranform);
 
-            //var bullet = GameObject.Instantiate(_data.Bullet.Bullet, player.position, player.rotation);
-
-
-            _inputController = new InputController(moveTranform, rotation, camera, playerTransform, _data.Bullet);
+            var inputController = new InputController(moveTranform, rotation, camera, _weapon, _mainControllers, _data, _playerTranform);
         }
     }   
 }

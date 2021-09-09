@@ -23,5 +23,10 @@ namespace Asteroids
             _move.Set(horizontal * speed, vertical * speed, 0.0f);
             _transform.localPosition += _move;
         }
+
+        public void Move()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

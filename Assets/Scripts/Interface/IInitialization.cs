@@ -1,4 +1,4 @@
-﻿namespace Asteroids
+﻿namespace Asteroids.Interface
 {
     public interface IInitialization : IController
     {

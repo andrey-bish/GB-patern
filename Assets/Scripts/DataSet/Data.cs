@@ -7,7 +7,7 @@ namespace Asteroids.Dataset
     public class Data : ScriptableObject
     {
         [SerializeField] private DataPlayer _player;
-        [SerializeField] private DataBullet _bullet;
+        [SerializeField] private DataWeapon _weapon;
         [SerializeField] private DataEnemies _enemies;
 
         public DataPlayer Player
@@ -16,10 +16,10 @@ namespace Asteroids.Dataset
             set => _player = value;
         }
         
-        public DataBullet Bullet
+        public DataWeapon Weapon
         {
-            get => _bullet;
-            set => _bullet = value;
+            get => _weapon;
+            set => _weapon = value;
         }
 
         public DataEnemies Enemies

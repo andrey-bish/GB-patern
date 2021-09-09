@@ -15,8 +15,6 @@ namespace Asteroids.Enemy
         public void Rotation(Vector3 direction)
         {
             _enemyShipTransform.up = direction;
-            Debug.Log(_enemyShipTransform);
         }
-
     }
 }

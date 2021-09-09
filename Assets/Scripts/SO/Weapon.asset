@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c0d0c3f85d977439caa2e89579002a, type: 3}
+  m_Name: Weapon
+  m_EditorClassIdentifier: 
+  AudioSourcePlayer: {fileID: 5063545398776472676, guid: d25e2ae89f4ff2f4ca9fb08fa6ea29ee,
+    type: 3}
+  BulletPrefab: {fileID: 8974991651741479658, guid: a745dd606b94f0e4ea1288097c3c31e1,
+    type: 3}
+  OneShotAudioClip: {fileID: 8300000, guid: 49cbac8224a222c4f990d329a008ed6c, type: 3}
+  Force: 3.5
+  Damage: 20
+  FireCooldown: 1
+  MufflerPrefab: {fileID: 4334160267942961262, guid: d62dbcfc871dd8d459cc6cca9126fbc0,
+    type: 3}
+  OneShotMufflerAudioClip: {fileID: 8300000, guid: 49cbac8224a222c4f990d329a008ed6c,
+    type: 3}
+  VolumeFireOnMuffler: 0
+  DamageWhitMuffler: 10
+  DefaultLaserAim: {fileID: 2100000, guid: f6eb487c29c6dd74b9d4aba7d1367d73, type: 3}
+  RedLaserAim: {fileID: 2100000, guid: 61596435399b8024bad7ee83966c60ab, type: 2}

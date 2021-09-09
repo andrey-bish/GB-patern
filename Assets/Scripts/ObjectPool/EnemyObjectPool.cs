@@ -21,19 +21,16 @@ namespace Asteroids.ObjectPool
             switch(typeEnemies)
             {
                 case "AsteroidView":
-                    Debug.Log("AsteroidView");
                     enemy = new AsteroidFactory(_data).Create(new Enemy.Health(_data.Enemies.Hp));
                     break;
                 case "CometView":
-                    Debug.Log("CometView");
                     enemy = new CometFactory(_data).Create(new Enemy.Health(_data.Enemies.Hp));
                     break;
                 case "EnemyShipView":
-                    Debug.Log("EnemyShipView");
                     enemy = new EnemyShipFactory(_data).Create(new Enemy.Health(_data.Enemies.Hp));
                     break;
                 default:
-                    throw new NullReferenceException("nema");
+                    throw new NullReferenceException("The specified enemy type was not found.");
             }
             return enemy;
         }
@@ -55,7 +52,6 @@ namespace Asteroids.ObjectPool
 
             if(enemy == null)
             {
-                Debug.Log("Empty enemy. Create new enemy");
                 enemy = CreateEnemy(type);
                 _enemyCollection[type].Add(enemy);
             }

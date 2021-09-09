@@ -1,61 +1,128 @@
 ﻿using UnityEngine;
-using Asteroids.Dataset;
-using Asteroids.ObjectPool;
 using Asteroids.Interface;
+using Asteroids.Dataset;
+using Asteroids.Modification;
 
 
 namespace Asteroids
 {
-    internal class InputController: IShooting
+    internal class InputController: IUpdateble, IInitialization
     {
-        private Ship _ship;
-        private Camera _camera;
-        private DataBullet _dataBullet;
-        private Transform _barrelPlayer;
-        private float _lastFireTime = 0.0f;
+        #region Field
 
-        public InputController(AccelerationMove moveTransform, RotationShip rotation, Camera camera, Transform player, DataBullet dataBullet)
+        private readonly MainControllers _mainControllers;
+        private readonly Transform _playerTranform;
+        private readonly Camera _camera;
+        private readonly Ship _ship;
+        private readonly Data _data;
+
+        private ActionWithLaserAim _actionWithLaserAim;
+        private ActionWithMuffler _actionWithMuffler;
+       
+        private IWeapon _weapon;
+
+        #endregion
+
+
+        #region Constructor
+
+        public InputController(AccelerationMove moveTransform, RotationShip rotation, Camera camera, IWeapon weapon, MainControllers mainControllers, Data data, Transform playerTranform)
         {
-            var ship = new Ship(moveTransform, rotation);
-            _barrelPlayer = player.GetChild(0);
-            _ship = ship;
+            _ship = new Ship(moveTransform, rotation);
             _camera = camera;
-            _dataBullet = dataBullet;
+            _weapon = weapon;
+            _mainControllers = mainControllers;
+            _mainControllers.Add(this);
+            _data = data;
+            _playerTranform = playerTranform;
         }
 
-        public void CameraCursorTracking()
+        #endregion
+
+
+        #region UnityMethods
+
+        public void Updateble(float deltaTime)
+        {
+            CameraCursorTracking();
+            CheckInputKey(deltaTime);
+        }
+
+        public void Initialization()
+        {
+            _actionWithLaserAim = new ActionWithLaserAim(_playerTranform, _mainControllers);
+            _actionWithMuffler = new ActionWithMuffler();
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        private void InteractionWithMuffler()
+        {
+            //Вот так глушитель можно надеть, но вот снять его уже не получится
+            //new ActionWithMuffler().InstallationRemovalMuffler(_data, _playerTranform, _weapon);
+
+            //А так уже всё нормально работает
+            _actionWithMuffler.InstallationRemovalMuffler(_data, _playerTranform, _weapon);
+        }
+
+        private void InteractionWithLaserAim(Material viewLaserAim)
+        {
+            _actionWithLaserAim.ActionsOnTheLaserAim(_data.Weapon, _weapon, viewLaserAim);
+        }
+
+        private void CameraCursorTracking()
         {
             var direction = Input.mousePosition - _camera.WorldToScreenPoint(_camera.transform.position);
             _ship.Rotation(direction);
         }
 
-        public void CheckInputKey(float deltaTime)
+        private void CheckInputKey(float deltaTime)
         {
             _ship.Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), deltaTime);
-            if(Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 _ship.AddAcceleration();
             }
 
-            if(Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 _ship.RemoveAcceleration();
             }
 
-            if(Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {
-                Shooting();
+                _weapon.Shooting();
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                InteractionWithMuffler();
+            }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                _actionWithLaserAim.CheckStatusLaserAim();
+            }
+            if(Input.GetKeyDown(KeyCode.I))
+            {
+                //симуляция залочки стрельбы
+                _data.Weapon.IsWeaponLocked = !_data.Weapon.IsWeaponLocked;
+                _weapon.SetWeaponLockeD(_data.Weapon.IsWeaponLocked);
+            }
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                //симуляция залочки прицела
+                _actionWithLaserAim.IsLockedAim = !_actionWithLaserAim.IsLockedAim;
+                _actionWithLaserAim.IsAim = true;
+            }
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+                //симуляция подбора и потери лазерного прицела
+                InteractionWithLaserAim(_data.Weapon.RedLaserAim);
             }
         }
 
-        public void Shooting()
-        {
-            if (_lastFireTime + _dataBullet.FireCooldown < Time.time)
-            {
-                _lastFireTime = Time.time;
-                var bullet = BulletObjectPool.GetBullet(_dataBullet.BulletPref, _barrelPlayer.position, _dataBullet.Damage);
-                bullet.AddForce(_barrelPlayer.up * _dataBullet.Force, ForceMode2D.Impulse);
-            }
-        }
+        #endregion
     }
 }

@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68ae128f37e2054d9de165ece2f105b, type: 3}
   m_Name: Enemies
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 2
+  ImpulseStrenge: 2
   Hp: 40
+  RangeAtack: 3
   CometPrefab: {fileID: -7940315395216756793, guid: e6c7ad74f14da7b4b9c9b62532111d33,
     type: 3}
   AsteroidPrefab: {fileID: 4190709091634287241, guid: a67971fb041c8bc44bafc6fda4ca5427,

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Data
   m_EditorClassIdentifier: 
   _player: {fileID: 11400000, guid: 9cfb83a10cd6cc849b11537b73e36fd2, type: 2}
-  _bullet: {fileID: 11400000, guid: c33c86dbc12dab54f9620bac37d964ff, type: 2}
+  _weapon: {fileID: 11400000, guid: c33c86dbc12dab54f9620bac37d964ff, type: 2}
   _enemies: {fileID: 11400000, guid: f5f502331f7d60b41800390702e3b8e8, type: 2}

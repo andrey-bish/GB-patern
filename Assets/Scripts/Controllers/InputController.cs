@@ -21,6 +21,8 @@ namespace Asteroids
        
         private IWeapon _weapon;
 
+        private bool _isMuffler = false;
+
         #endregion
 
 
@@ -52,6 +54,7 @@ namespace Asteroids
         {
             _actionWithLaserAim = new ActionWithLaserAim(_playerTranform, _mainControllers);
             _actionWithMuffler = new ActionWithMuffler();
+            
         }
 
         #endregion
@@ -120,6 +123,31 @@ namespace Asteroids
             {
                 //симуляция подбора и потери лазерного прицела
                 InteractionWithLaserAim(_data.Weapon.RedLaserAim);
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                var root = new WeaponModification(_weapon);
+                if(!_isMuffler)
+                {
+                    Debug.Log("if");
+                    _isMuffler = !_isMuffler;
+                    root.Add(new EditAttackModification(_weapon, 100.0f));
+                    root.Add(new EditAudioClip(_weapon, _data.Weapon.OneShotMufflerAudioClip));
+                    root.Add(new EditAudioVolume(_weapon, _data.Weapon.ShotVolumeMuffler));
+                    root.Add(new AddMuffler(_weapon, _data.Weapon, _playerTranform));
+                    root.Handle();
+                }
+                else
+                {
+                    Debug.Log("else");
+                    _isMuffler = !_isMuffler;
+                    root.Add(new EditAttackModification(_weapon, _data.Weapon.Damage));
+                    root.Add(new EditAudioClip(_weapon, _data.Weapon.OneShotAudioClip));
+                    root.Add(new EditAudioVolume(_weapon, _data.Weapon.DefaultShotVolume));
+                    root.Add(new RemoveMuffler(_weapon, _data.Weapon, _playerTranform));
+                    root.Handle();
+                }
+                
             }
         }
 

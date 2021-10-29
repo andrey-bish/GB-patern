@@ -2,15 +2,25 @@
 using Asteroids.Interface;
 using System;
 using Asteroids.Enemy;
+using Asteroids.Dataset;
 
 
 namespace Asteroids
 {
-    public class PlayerView : MonoBehaviour, IHit
+    public class PlayerView : MonoBehaviour, IHit, IPlayer
     {
         public event Action<float> OnHitChange = delegate (float f) { };
 
+        [SerializeField] private AudioSource _audioSource;
+
+        private DataWeapon _dataWeapon;
         private Health _health;
+
+        private void Start()
+        {
+            //_audioSource = GetComponent<AudioSource>();
+            //_dataWeapon.AudioSourcePlayer = _audioSource;
+        }
 
         public void SetHealth(Health health)
         {

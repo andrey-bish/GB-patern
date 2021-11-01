@@ -12,15 +12,15 @@ namespace Asteroids.Modification
             _weapon = weapon;
         }
 
-        public void Add(WeaponModification cm)
+        public void Add(WeaponModification weaponModification)
         {
             if(Next != null)
             {
-                Next.Add(cm);
+                Next.Add(weaponModification);
             }
             else
             {
-                Next = cm;
+                Next = weaponModification;
             }
         }
 

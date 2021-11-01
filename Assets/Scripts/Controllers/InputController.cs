@@ -11,24 +11,23 @@ namespace Asteroids
         #region Field
 
         private readonly MainControllers _mainControllers;
-        private readonly Transform _playerTranform;
+        private readonly Transform _playerTransform;
         private readonly Camera _camera;
         private readonly Ship _ship;
         private readonly Data _data;
 
         private ActionWithLaserAim _actionWithLaserAim;
         private ActionWithMuffler _actionWithMuffler;
+        private ChainOfResponsibility _chainOfResponsibility;
        
         private IWeapon _weapon;
-
-        private bool _isMuffler = false;
 
         #endregion
 
 
         #region Constructor
 
-        public InputController(AccelerationMove moveTransform, RotationShip rotation, Camera camera, IWeapon weapon, MainControllers mainControllers, Data data, Transform playerTranform)
+        public InputController(AccelerationMove moveTransform, RotationShip rotation, Camera camera, IWeapon weapon, MainControllers mainControllers, Data data, Transform playerTransform)
         {
             _ship = new Ship(moveTransform, rotation);
             _camera = camera;
@@ -36,7 +35,7 @@ namespace Asteroids
             _mainControllers = mainControllers;
             _mainControllers.Add(this);
             _data = data;
-            _playerTranform = playerTranform;
+            _playerTransform = playerTransform;
         }
 
         #endregion
@@ -52,9 +51,9 @@ namespace Asteroids
 
         public void Initialization()
         {
-            _actionWithLaserAim = new ActionWithLaserAim(_playerTranform, _mainControllers);
+            _actionWithLaserAim = new ActionWithLaserAim(_playerTransform, _mainControllers);
             _actionWithMuffler = new ActionWithMuffler();
-            
+            _chainOfResponsibility = new ChainOfResponsibility();
         }
 
         #endregion
@@ -63,17 +62,22 @@ namespace Asteroids
         #region Methods
 
         private void InteractionWithMuffler()
-        {
+        { 
             //Вот так глушитель можно надеть, но вот снять его уже не получится
             //new ActionWithMuffler().InstallationRemovalMuffler(_data, _playerTranform, _weapon);
 
             //А так уже всё нормально работает
-            _actionWithMuffler.InstallationRemovalMuffler(_data, _playerTranform, _weapon);
+            _actionWithMuffler.InstallationRemovalMuffler(_data, _playerTransform, _weapon);
         }
 
         private void InteractionWithLaserAim(Material viewLaserAim)
         {
             _actionWithLaserAim.ActionsOnTheLaserAim(_data.Weapon, _weapon, viewLaserAim);
+        }
+
+        private void InteractionWithMufflerChainOfResponsibility()
+        {
+            _chainOfResponsibility.InstallationRemovalMuffler(_playerTransform, _data.Weapon, _weapon);
         }
 
         private void CameraCursorTracking()
@@ -111,7 +115,7 @@ namespace Asteroids
             {
                 //симуляция залочки стрельбы
                 _data.Weapon.IsWeaponLocked = !_data.Weapon.IsWeaponLocked;
-                _weapon.SetWeaponLockeD(_data.Weapon.IsWeaponLocked);
+                _weapon.SetWeaponLocked(_data.Weapon.IsWeaponLocked);
             }
             if (Input.GetKeyDown(KeyCode.Y))
             {
@@ -126,25 +130,8 @@ namespace Asteroids
             }
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                var root = new WeaponModification(_weapon);
-                if(!_isMuffler)
-                {
-                    _isMuffler = !_isMuffler;
-                    root.Add(new EditAttackModification(_weapon, 100.0f));
-                    root.Add(new EditAudioClip(_weapon, _data.Weapon.OneShotMufflerAudioClip));
-                    root.Add(new EditAudioVolume(_weapon, _data.Weapon.ShotVolumeMuffler));
-                    root.Add(new AddMuffler(_weapon, _data.Weapon, _playerTranform));
-                    root.Handle();
-                }
-                else
-                {
-                    _isMuffler = !_isMuffler;
-                    root.Add(new EditAttackModification(_weapon, _data.Weapon.Damage));
-                    root.Add(new EditAudioClip(_weapon, _data.Weapon.OneShotAudioClip));
-                    root.Add(new EditAudioVolume(_weapon, _data.Weapon.DefaultShotVolume));
-                    root.Add(new RemoveMuffler(_weapon, _playerTranform));
-                    root.Handle();
-                }
+                //реализация шаблона проектирования "Цепочка обязанностей"
+                InteractionWithMufflerChainOfResponsibility();
             }
         }
 

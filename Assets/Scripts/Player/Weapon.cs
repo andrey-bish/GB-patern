@@ -61,7 +61,7 @@ namespace Asteroids
             _playerLineRenderer.material = _viewLaserAim;
         }
 
-        public void SetWeaponLockeD(bool isWeaponLocked)
+        public void SetWeaponLocked(bool isWeaponLocked)
         {
             _isWeaponLocked = isWeaponLocked;
         }

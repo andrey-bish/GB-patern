@@ -15,7 +15,7 @@ namespace Asteroids.Interface
 
         void SetAimLaser(Material aimLaserMaterial);
 
-        void SetWeaponLockeD(bool isWeaponLocked);
+        void SetWeaponLocked(bool isWeaponLocked);
 
     }
 }

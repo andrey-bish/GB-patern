@@ -129,7 +129,6 @@ namespace Asteroids
                 var root = new WeaponModification(_weapon);
                 if(!_isMuffler)
                 {
-                    Debug.Log("if");
                     _isMuffler = !_isMuffler;
                     root.Add(new EditAttackModification(_weapon, 100.0f));
                     root.Add(new EditAudioClip(_weapon, _data.Weapon.OneShotMufflerAudioClip));
@@ -139,15 +138,13 @@ namespace Asteroids
                 }
                 else
                 {
-                    Debug.Log("else");
                     _isMuffler = !_isMuffler;
                     root.Add(new EditAttackModification(_weapon, _data.Weapon.Damage));
                     root.Add(new EditAudioClip(_weapon, _data.Weapon.OneShotAudioClip));
                     root.Add(new EditAudioVolume(_weapon, _data.Weapon.DefaultShotVolume));
-                    root.Add(new RemoveMuffler(_weapon, _data.Weapon, _playerTranform));
+                    root.Add(new RemoveMuffler(_weapon, _playerTranform));
                     root.Handle();
                 }
-                
             }
         }
 

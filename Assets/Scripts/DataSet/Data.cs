@@ -9,13 +9,14 @@ namespace Asteroids.Dataset
         [SerializeField] private DataPlayer _player;
         [SerializeField] private DataWeapon _weapon;
         [SerializeField] private DataEnemies _enemies;
+        [SerializeField] private DataUI _ui;
 
         public DataPlayer Player
         {
             get => _player;
             set => _player = value;
         }
-        
+
         public DataWeapon Weapon
         {
             get => _weapon;
@@ -26,6 +27,12 @@ namespace Asteroids.Dataset
         {
             get => _enemies;
             set => _enemies = value;
+        }
+
+        public DataUI UI
+        {
+            get => _ui;
+            set => _ui = value;
         }
 
     }

@@ -5,10 +5,9 @@ using Asteroids.Interface;
 
 namespace Asteroids
 {
-    public class PlayerInitialize: IInitialization, IUpdateble
+    public class PlayerInitialize: IInitialization
     {
         private MainControllers _mainControllers;
-        //private InputController _inputController;
         private LineRenderer _lineRenderer;
         private IWeapon _weapon;
         private Data _data;
@@ -26,18 +25,14 @@ namespace Asteroids
             InitializeObj(new Health(_data.Player.Hp));
         }
 
-        public void Updateble(float deltaTime)
-        {
-        }
-
         //убрать отсюда _inputController, перенести в отдельный контроллер, камеру инициализировать в GM.
         //player убрать в отдельный класс, чтобы передесть _inputContorller'у в GM
-        public void InitializeObj(Health health)
+        private void InitializeObj(Health health)
         {
             var player = Object.Instantiate(_data.Player.PlayerPrefab);
             player.SetHealth(health);
             health.Death += player.Death;
-
+            
             _playerTranform = player.transform;
             _lineRenderer = _playerTranform.GetComponent<LineRenderer>();
 

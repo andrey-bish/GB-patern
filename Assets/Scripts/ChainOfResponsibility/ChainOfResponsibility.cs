@@ -2,6 +2,7 @@
 using Asteroids.Dataset;
 using Asteroids.Interface;
 
+
 namespace Asteroids.Modification
 {
     class ChainOfResponsibility
@@ -31,6 +32,8 @@ namespace Asteroids.Modification
             }
         }
 
+        #region Methods
+
         private void InstallationMuffler(Transform playerTransform, DataWeapon dataWeapon, IWeapon weapon)
         {
             _isMuffler = true;
@@ -50,5 +53,7 @@ namespace Asteroids.Modification
             _weaponModification.Add(new RemoveMuffler(weapon, playerTransform));
             _weaponModification.Handle();
         }
+
+        #endregion
     }
 }

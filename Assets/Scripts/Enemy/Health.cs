@@ -7,28 +7,28 @@ namespace Asteroids.Enemy
     {
         public event Action Death;
         public float Max { get; }
-        public float Current { get; private set; }
+        public float CurrentHP { get; private set; }
 
         public Health(float max, float current)
         {
             Max = max;
-            Current = current;
+            CurrentHP = current;
         }
         public Health(float current)
         {
-            Current = current;
+            CurrentHP = current;
         }
 
         public void ChangeCurrentHealth(float hp)
         {
-            Current = hp;
+            CurrentHP = hp;
         }
 
         public void Damages(float point)
         {
-            Current -= point;
-            Debug.Log("Current HP " + Current);
-            if(Current <= 0)
+            CurrentHP -= point;
+            Debug.Log("Current HP " + CurrentHP);
+            if(CurrentHP <= 0)
             {
                 Death?.Invoke();
             }

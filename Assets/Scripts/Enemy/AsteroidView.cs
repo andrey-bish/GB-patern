@@ -8,12 +8,13 @@ namespace Asteroids.Enemy
     public class AsteroidView : MonoBehaviour, IEnemy, IHit
     {
         public event Action<float> OnHitChange = delegate (float f) { };
+        public event Action<string> Score;
 
         private Health _health;
 
         public void SetHealth(Health health)
         {
-            if(_health == null || _health.Current <= 0)
+            if(_health == null || _health.CurrentHP <= 0)
             {
                 _health = health;
             }
@@ -39,6 +40,7 @@ namespace Asteroids.Enemy
         private void Destroy()
         {
             EnemyObjectPool.ReturnToPool(this);
+            Score?.Invoke("999999");
         }
     }
 }

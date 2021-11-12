@@ -11,6 +11,7 @@ namespace Asteroids
         private LineRenderer _lineRenderer;
         private IWeapon _weapon;
         private Data _data;
+        private PlayerView _player;
         
         private Transform _playerTranform;
 
@@ -29,11 +30,12 @@ namespace Asteroids
         //player убрать в отдельный класс, чтобы передесть _inputContorller'у в GM
         private void InitializeObj(Health health)
         {
-            var player = Object.Instantiate(_data.Player.PlayerPrefab);
-            player.SetHealth(health);
-            health.Death += player.Death;
+            _player = Object.Instantiate(_data.Player.PlayerPrefab);
+            _data.Player.PlayerGO = _player.gameObject;
+            _player.SetHealth(health);
+            health.Death += _player.Death;
             
-            _playerTranform = player.transform;
+            _playerTranform = _player.transform;
             _lineRenderer = _playerTranform.GetComponent<LineRenderer>();
 
             var camera = Camera.main;

@@ -1,11 +1,16 @@
 ﻿using Asteroids.Interface;
 using Asteroids.ObjectPool;
 using Asteroids.Dataset;
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System;
 
 
 namespace Asteroids.Enemy
 {
-    class EnemyInitializator : IInitialization
+    class EnemyInitializator : IInitialization, IUpdateble
     {
         private readonly IEnemiesFactory _enemiesFactory;
 
@@ -38,6 +43,10 @@ namespace Asteroids.Enemy
             EnemyObjectPool.GetEnemy<AsteroidView>(_data);
             EnemyObjectPool.GetEnemy<CometView>(_data);
             EnemyObjectPool.GetEnemy<EnemyShipView>(_data);
+        }
+
+        public void Updateble(float deltaTime)
+        {
         }
     }
 }

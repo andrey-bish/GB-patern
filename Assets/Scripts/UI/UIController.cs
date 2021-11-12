@@ -6,92 +6,65 @@ using Asteroids.Dataset;
 
 namespace Asteroids.UI
 {
-    class UIController : IInitialization, IUpdateble
+    class UIController : IUpdateble
     {
-        private readonly Stack<StateUI> _stateUI = new Stack<StateUI>();
+        #region Fields
 
-        private BottomLeftUI _bottomLeftUI;
-        private TopLeftUI _topLeftUI;
-        private BaseUI _currentWindow;
+        private HealthBarInterface _healthBarInterface;
+        public readonly Stack<StateUI> _stateUIStack = new Stack<StateUI>();
 
-        public UIController(MainControllers mainControllers, GameObject mainUI)
+        #endregion
+
+
+        #region Constructor
+
+        public UIController(MainControllers mainControllers, GameObject mainUI, Data data)
         {
-            _bottomLeftUI = mainUI.transform.Find("Canvas/BottomLeftUI").GetComponent<BottomLeftUI>();
-            _topLeftUI = mainUI.transform.Find("Canvas/TopLeftUI").GetComponent<TopLeftUI>();
+            _healthBarInterface = new HealthBarInterface(mainControllers, mainUI, data);
+            _stateUIStack = _healthBarInterface.StateUIStack;
             mainControllers.Add(this);
         }
-        private void Execute(StateUI stateUI, bool isSave = true)
-        {
-            Debug.Log("Execute");
-            Debug.Log("Starting stateUI.Count " + _stateUI.Count);
-            if (isSave)
-            {
-                Debug.Log("if (isSave)");
-                _stateUI.Push(stateUI);
-                Debug.Log("stateUI.Count " + _stateUI.Count);
-            }
-            
-            if (_currentWindow != null)
-            {
-                Debug.Log("if (_currentWindow != null)");
-                _currentWindow.Cancel();
-            }
 
-                switch (stateUI)
-                {
+        #endregion
 
-                    case StateUI.TopLeftUI:
-                        Debug.Log("case StateUI.TopLeftUI:");
-                        _currentWindow = _topLeftUI;
-                        break;
-                    case StateUI.BottomLeftUI:
-                        Debug.Log(" case StateUI.BottomLeftUI:");
-                        _currentWindow = _bottomLeftUI;
-                        break;
-                    default:
-                        Debug.Log("default:");
-                        break;
-                }
 
-            _currentWindow.Execute();
-            Debug.Log("After switch stateUI.Count " + _stateUI.Count);
-        }
-
-        public void Initialization()
-        {
-            _topLeftUI.Cancel();
-            _bottomLeftUI.Cancel();
-        }
+        #region UnityMethods
 
         public void Updateble(float deltaTime)
         {
             if (Input.GetKeyDown(KeyCode.F3))
             {
                 Debug.Log("if input F3");
-                Execute(StateUI.TopLeftUI);
+                _healthBarInterface.Execute(StateUI.TopLeftUI);
             }
             if (Input.GetKeyDown(KeyCode.F2))
             {
                 Debug.Log("if input F2");
-                Execute(StateUI.BottomLeftUI);
+                _healthBarInterface.Execute(StateUI.BottomLeftUI);
             }
             if (Input.GetKeyDown(KeyCode.F4))
             {
                 Debug.Log("if input F4");
-                if (_stateUI.Count > 0)
+                if (_stateUIStack.Count > 0)
                 {
                     Debug.Log("if(_stateUI.Count > 0)");
-                    Debug.Log("stateUI.Count " + _stateUI.Count);
-                    Debug.Log("StateUIPoP - " + _stateUI.Pop());
-                    Execute(_stateUI.Pop(), false);
+                    Debug.Log("stateUI.Count " + _stateUIStack.Count);
+                    Debug.Log("StateUIPoP - " + _stateUIStack.Pop());
+                    _healthBarInterface.Execute(_stateUIStack.Pop(), false);
 
                 }
-                else if (_stateUI.Count == 0)
+                else if (_stateUIStack.Count == 0)
                 {
                     Debug.Log("else if (_stateUI.Count == 0)");
-                    _currentWindow.Cancel();
+                    _healthBarInterface.CurrentWindow.Cancel();
                 }
             }
+            if (_healthBarInterface.CurrentWindow != null)
+            {
+                _healthBarInterface.PlayerHealthBar(_healthBarInterface.CurrentWindow);
+            }
         }
+
+        #endregion
     }
 }

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: UI
   m_EditorClassIdentifier: 
   MainUI: {fileID: 3305630304142010388, guid: 9ebbf0be3d9f6d6489943229df9edf52, type: 3}
-  TopLeftUIPrefab: {fileID: -1132390469842663945, guid: c943b94823e376844901880b41d1bf36,
+  TopLeftUIPrefab: {fileID: 3305630303638668088, guid: c943b94823e376844901880b41d1bf36,
+    type: 3}
+  TopLeftUIGO: {fileID: 8527930379154346618, guid: c943b94823e376844901880b41d1bf36,
     type: 3}
   TextTopLeftUI: {fileID: 0}
   ImageTopLeftUI: {fileID: 0}

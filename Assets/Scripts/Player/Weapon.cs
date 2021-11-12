@@ -18,6 +18,7 @@ namespace Asteroids
         private float _damage;
         private float _lastFireTime = 0.0f;
         private float _shotVolume;
+        private float _fireCooldown;
 
         private bool _isWeaponLocked; 
 
@@ -33,6 +34,7 @@ namespace Asteroids
             _viewLaserAim = data.Weapon.RedLaserAim;
             _playerLineRenderer = playerTransform.GetComponent<LineRenderer>();
             _isWeaponLocked = data.Weapon.IsWeaponLocked;
+            _fireCooldown = data.Weapon.FireCooldown;
         }
 
         public void SetAudioClip(AudioClip audioClip)
@@ -66,6 +68,11 @@ namespace Asteroids
             _isWeaponLocked = isWeaponLocked;
         }
 
+        public void SetFireFireCooldown(float fireCooldown)
+        {
+            _fireCooldown = fireCooldown;
+        }
+
         public void Shooting()
         {
             if (_isWeaponLocked)
@@ -74,7 +81,7 @@ namespace Asteroids
             }
             else
             {
-                if (_lastFireTime + _dataWeapon.FireCooldown < Time.time)
+                if (_lastFireTime + _fireCooldown < Time.time)
                 {
                     _audioSource.volume = _shotVolume;
                     _audioSource.PlayOneShot(_audioSource.clip);

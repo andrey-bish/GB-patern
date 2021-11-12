@@ -9,5 +9,6 @@ namespace Asteroids.Dataset
         public float Acceleration;
         public float Hp;
         public PlayerView PlayerPrefab;
+        public GameObject PlayerGO;
     }
 }

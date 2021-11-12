@@ -11,12 +11,10 @@ namespace Asteroids.Dataset
 
         [Header("TopLeftUI")]
         public TopLeftUI TopLeftUIPrefab;
-        public Text TextTopLeftUI;
-        public Image ImageTopLeftUI;
+        public GameObject TopLeftUIGO;
 
         [Header("BottomLeftUI")]
         public BottomLeftUI BottomLeftUIPrefab;
-        public Text TextBottomLeftUI;
 
     }
 }

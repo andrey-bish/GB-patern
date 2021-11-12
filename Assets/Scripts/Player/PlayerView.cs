@@ -13,14 +13,7 @@ namespace Asteroids
 
         [SerializeField] private AudioSource _audioSource;
 
-        private DataWeapon _dataWeapon;
         private Health _health;
-
-        private void Start()
-        {
-            //_audioSource = GetComponent<AudioSource>();
-            //_dataWeapon.AudioSourcePlayer = _audioSource;
-        }
 
         public void SetHealth(Health health)
         {
@@ -28,6 +21,11 @@ namespace Asteroids
             {
                 _health = health;
             }
+        }
+
+        public Health GetHealth()
+        {
+            return _health;
         }
 
         public void Damage(float point)

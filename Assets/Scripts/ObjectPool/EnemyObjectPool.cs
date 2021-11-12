@@ -11,7 +11,7 @@ namespace Asteroids.ObjectPool
 {
     class EnemyObjectPool
     {
-        private static readonly Dictionary<string, HashSet<IEnemy>> _enemyCollection = new Dictionary<string, HashSet<IEnemy>>();
+        public static readonly Dictionary<string, HashSet<IEnemy>> _enemyCollection = new Dictionary<string, HashSet<IEnemy>>();
 
         private static Data _data;
 
@@ -38,22 +38,27 @@ namespace Asteroids.ObjectPool
         private static HashSet<IEnemy> GetListEnemy(string typeEnemies)
         {
             if (_enemyCollection.ContainsKey(typeEnemies))
+            {   
+                Debug.Log(_enemyCollection[typeEnemies]);
                 return _enemyCollection[typeEnemies];
+            }
+                
             else
                 return _enemyCollection[typeEnemies] = new HashSet<IEnemy>();
+                
         }
 
         public static T GetEnemy<T>(Data data) where T: IEnemy
         {
             _data = data;
             var type = typeof(T).Name;
+            var list = GetListEnemy(type);
 
-            var enemy = GetListEnemy(type).FirstOrDefault(x => !(x as MonoBehaviour).gameObject.activeSelf);
-
-            if(enemy == null)
+            var enemy = list.FirstOrDefault(x => !(x as MonoBehaviour).gameObject.activeSelf);
+            if (enemy == null)
             {
                 enemy = CreateEnemy(type);
-                _enemyCollection[type].Add(enemy);
+                list.Add(enemy);
             }
             else
             {

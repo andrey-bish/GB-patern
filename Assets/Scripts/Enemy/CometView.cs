@@ -8,6 +8,7 @@ namespace Asteroids.Enemy
     public class CometView : MonoBehaviour, IEnemy, IHit
     {
         public event Action<float> OnHitChange = delegate (float f) { };
+        public event Action<string> Score;
 
         private Health _health;
 
@@ -39,6 +40,7 @@ namespace Asteroids.Enemy
         private void Destroy()
         {
             EnemyObjectPool.ReturnToPool(this);
+            Score?.Invoke("5990");
         }
     }
 }

@@ -17,5 +17,7 @@ namespace Asteroids.Interface
 
         void SetWeaponLocked(bool isWeaponLocked);
 
+        void SetFireFireCooldown(float fireCooldown);
+
     }
 }

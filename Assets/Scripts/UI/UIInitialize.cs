@@ -21,7 +21,7 @@ namespace Asteroids.UI
 
         private void InitializeUI()
         {
-            new UIController(_mainControllers, Object.Instantiate(_data.UI.MainUI));
+            new UIController(_mainControllers, Object.Instantiate(_data.UI.MainUI), _data);
         }
     }
 }

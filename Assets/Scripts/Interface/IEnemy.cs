@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+
+
 namespace Asteroids.Interface
 {
     /// <summary>
@@ -6,5 +8,6 @@ namespace Asteroids.Interface
     /// </summary>
     public interface IEnemy
     {
+        event Action<string> Score;
     }
 }

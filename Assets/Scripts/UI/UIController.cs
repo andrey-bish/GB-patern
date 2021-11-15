@@ -23,6 +23,7 @@ namespace Asteroids.UI
             _healthBarInterface = new HealthBarInterface(mainControllers, mainUI, data);
             _stateUIStack = _healthBarInterface.StateUIStack;
             mainControllers.Add(this);
+            mainControllers.Add(new ImplementationMediator(mainUI, mainControllers));
         }
 
         #endregion

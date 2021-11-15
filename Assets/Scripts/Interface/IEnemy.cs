@@ -9,5 +9,6 @@ namespace Asteroids.Interface
     public interface IEnemy
     {
         event Action<string> Score;
+        event Action<IEnemy> EnemyDead;
     }
 }

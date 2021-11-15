@@ -9,6 +9,7 @@ namespace Asteroids.Enemy
     {
         public event Action<float> OnHitChange = delegate (float f) { };
         public event Action<string> Score;
+        public event Action<IEnemy> EnemyDead;
 
         private Health _health;
 
@@ -39,6 +40,7 @@ namespace Asteroids.Enemy
 
         private void Destroy()
         {
+            EnemyDead?.Invoke(this);
             EnemyObjectPool.ReturnToPool(this);
             Score?.Invoke("100");
         }

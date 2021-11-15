@@ -3,12 +3,14 @@ using Asteroids.Interface;
 using Asteroids.ObjectPool;
 using System;
 
+
 namespace Asteroids.Enemy
 {
     public class CometView : MonoBehaviour, IEnemy, IHit
     {
         public event Action<float> OnHitChange = delegate (float f) { };
         public event Action<string> Score;
+        public event Action<IEnemy> EnemyDead;
 
         private Health _health;
 
@@ -39,6 +41,7 @@ namespace Asteroids.Enemy
 
         private void Destroy()
         {
+            EnemyDead?.Invoke(this);
             EnemyObjectPool.ReturnToPool(this);
             Score?.Invoke("5990");
         }

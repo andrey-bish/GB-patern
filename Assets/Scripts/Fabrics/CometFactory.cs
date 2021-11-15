@@ -2,6 +2,8 @@
 using UnityEngine;
 using Asteroids.Dataset;
 using Asteroids.Enemy;
+using Asteroids.UI;
+
 
 namespace Asteroids.Fabrics
 {
@@ -26,6 +28,7 @@ namespace Asteroids.Fabrics
             var enemy = Object.Instantiate(_dataEnemies.CometPrefab);
             enemy.SetHealth(health);
             health.Death += enemy.Death;
+            enemy.EnemyDead += ConcreteMediator.Get().Notify;
 
             new EnemiesSpawn(_dataPlayer).RandomSpawnLocation(enemy);
 

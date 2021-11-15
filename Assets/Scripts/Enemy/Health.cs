@@ -27,7 +27,7 @@ namespace Asteroids.Enemy
         public void Damages(float point)
         {
             CurrentHP -= point;
-            Debug.Log("Current HP " + CurrentHP);
+            //Debug.Log("Current HP " + CurrentHP);
             if(CurrentHP <= 0)
             {
                 Death?.Invoke();

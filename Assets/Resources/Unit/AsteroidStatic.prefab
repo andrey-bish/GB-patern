@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2647134724813261265}
   - component: {fileID: 2647134724813261266}
+  - component: {fileID: 2647134724813261267}
+  - component: {fileID: 2647134724813261268}
   - component: {fileID: 8952593438665375067}
-  - component: {fileID: 4190709091634287241}
-  - component: {fileID: -8340388886745595731}
-  - component: {fileID: 96248312665777396}
   m_Layer: 0
-  m_Name: Asteroid 1
+  m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,6 +84,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2647134724813261267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647134724813261269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7fbd411c775c24e919e872aeea9985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!68 &2647134724813261268
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647134724813261269}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.17181063, y: -0.00031513054}
+  - {x: 0.10480453, y: -0.11758099}
+  - {x: -0.00015237159, y: -0.17710099}
+  - {x: -0.15590087, y: -0.15723863}
+  - {x: -0.1799132, y: -0.042151596}
+  - {x: -0.08185758, y: 0.08622871}
+  - {x: 0.04847604, y: 0.17868172}
+  - {x: 0.045188013, y: 0.09879956}
+  - {x: 0.07394008, y: 0.039293326}
+  - {x: 0.17725, y: 0}
 --- !u!58 &8952593438665375067
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -101,71 +138,3 @@ CircleCollider2D:
   m_Offset: {x: -0.013918777, y: -0.03545008}
   serializedVersion: 2
   m_Radius: 0.20367326
---- !u!114 &4190709091634287241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2647134724813261269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 989cd839e1526084c8b13af1e48e8065, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!50 &-8340388886745595731
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2647134724813261269}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 19.25
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!68 &96248312665777396
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2647134724813261269}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.17384514, y: -0.056829773}
-  - {x: -0.014756927, y: 0.14689972}
-  - {x: 0.044663124, y: 0.17785476}
-  - {x: 0.05529602, y: 0.17378402}
-  - {x: 0.01715877, y: 0.1150746}
-  - {x: 0.048945237, y: 0.107179254}
-  - {x: 0.03768205, y: 0.039817255}
-  - {x: 0.096459895, y: 0.03508296}
-  - {x: 0.12648766, y: 0.006230395}
-  - {x: 0.15745799, y: 0.0063488293}
-  - {x: 0.17861754, y: 0.012998603}
-  - {x: 0.15130094, y: -0.049416445}
-  - {x: 0.08402886, y: -0.12669188}
-  - {x: 0.022136508, y: -0.16860144}
-  - {x: -0.052258294, y: -0.17257519}
-  - {x: -0.10930208, y: -0.16868131}
-  - {x: -0.14538932, y: -0.15573098}
-  - {x: -0.17153727, y: -0.1111195}
-  - {x: -0.17174985, y: -0.060496245}

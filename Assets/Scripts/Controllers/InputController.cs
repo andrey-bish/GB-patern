@@ -2,6 +2,7 @@
 using Asteroids.Interface;
 using Asteroids.Dataset;
 using Asteroids.Modification;
+using Asteroids.Models;
 
 
 namespace Asteroids
@@ -34,6 +35,7 @@ namespace Asteroids
             _weapon = weapon;
             _mainControllers = mainControllers;
             _mainControllers.Add(this);
+            _mainControllers.Add(new TimeRewinder(_data.Player.TimeRecording));
             _data = data;
             _playerTransform = playerTransform;
         }

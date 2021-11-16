@@ -35,7 +35,6 @@ namespace Asteroids
             _weapon = weapon;
             _mainControllers = mainControllers;
             _mainControllers.Add(this);
-            _mainControllers.Add(new TimeRewinder(_data.Player.TimeRecording));
             _data = data;
             _playerTransform = playerTransform;
         }
@@ -56,6 +55,7 @@ namespace Asteroids
             _actionWithLaserAim = new ActionWithLaserAim(_playerTransform, _mainControllers);
             _actionWithMuffler = new ActionWithMuffler();
             _chainOfResponsibility = new ChainOfResponsibility();
+            _mainControllers.Add(new TimeRewinder(_data.Player.TimeRecording));
         }
 
         #endregion

@@ -8,9 +8,9 @@ namespace Asteroids
     class Interpreter
     {
         private Text _score;
-        private long _oldScore = 0;
+        
         private long _inter;
-        private List<char> _charsToRemove = new List<char>() { 'K', 'M', 'B' };
+        private long _oldScore = 0;
 
         public Interpreter(Text score)
         {
@@ -25,11 +25,6 @@ namespace Asteroids
 
         private string Interpretation(long inter)
         {
-            //if (_score.text != String.Empty)
-            //{
-            //    long.TryParse(EditStringScore(_score.text), out _oldScore);
-            //}
-                
             inter += _oldScore;
             _oldScore = inter;
             if (inter < 0) 
@@ -42,38 +37,5 @@ namespace Asteroids
                 return (inter / 1000) + "K";
             return inter.ToString();
         }
-
-        private string EditStringScore(string score)
-        {
-            foreach(char sss in score)
-            {
-                if (sss == 'B')
-                {
-                    Filter(score, _charsToRemove);
-                    return score + 000000000;
-                }
-                else if (sss == 'M')
-                {
-                    Filter(score, _charsToRemove);
-                    return score + 000000;
-                }
-                else if (sss == 'K')
-                {
-                    Filter(score, _charsToRemove);
-                    return score + "000";
-                }
-            }
-            return score;
-        }
-
-        private string Filter(string score, List<char> charsToRemove)
-        {
-            foreach(char c in charsToRemove)
-            {
-                score = score.Replace(c.ToString(), String.Empty);
-            }
-            return score;
-        }
-
     }
 }

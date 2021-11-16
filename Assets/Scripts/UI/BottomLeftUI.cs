@@ -19,14 +19,12 @@ namespace Asteroids.UI
         }
         public override void Cancel()
         {
-            Debug.Log("Cancel " +nameof(BottomLeftUI));
             gameObject.SetActive(false);
         }
 
         public override void GetPlayerData(DataPlayer dataPlayer)
         {
             _dataPlayer = dataPlayer;
-            Debug.Log(_dataPlayer);
         }
         public override void CheckHealth()
         {

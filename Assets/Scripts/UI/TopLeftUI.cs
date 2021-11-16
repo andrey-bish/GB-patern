@@ -10,18 +10,16 @@ namespace Asteroids.UI
     {
         [SerializeField] private Text _text;
         [SerializeField] private Slider _slider;
-        private Image _image;
+
         private DataPlayer _dataPlayer;
 
         public override void Execute()
         {
             //_text.text = nameof(TopLeftUI);
-            Debug.Log("Execute " + nameof(TopLeftUI));
             gameObject.SetActive(true);
         }
         public override void Cancel()
         {
-            Debug.Log("Cancel " + nameof(TopLeftUI));
             gameObject.SetActive(false);
         }
 

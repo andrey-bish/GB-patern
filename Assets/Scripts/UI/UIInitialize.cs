@@ -2,6 +2,7 @@
 using Asteroids.Dataset;
 using Asteroids.Interface;
 
+
 namespace Asteroids.UI
 {
     class UIInitialize : IInitialization
@@ -21,7 +22,7 @@ namespace Asteroids.UI
 
         private void InitializeUI()
         {
-            new UIController(_mainControllers, Object.Instantiate(_data.UI.MainUI), _data);
+            new InputUIController(_mainControllers, Object.Instantiate(_data.UI.MainUI), _data);
         }
     }
 }

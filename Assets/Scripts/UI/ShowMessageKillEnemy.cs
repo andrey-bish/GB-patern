@@ -1,4 +1,6 @@
 ﻿using Asteroids.Interface;
+using Asteroids.Models;
+;
 
 
 namespace Asteroids.UI
@@ -9,7 +11,6 @@ namespace Asteroids.UI
 
         private float _timeToRemoveMessageKilledEnemy = 2.0f;
         private float _currentTime = 0.0f;
-        
 
         public void GetMainController(MainControllers mainControllers)
         {

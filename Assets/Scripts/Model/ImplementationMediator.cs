@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Asteroids.Interface;
+using Asteroids.UI;
 
 
-namespace Asteroids.UI
+namespace Asteroids.Models
 {
     class ImplementationMediator: IInitialization
     {

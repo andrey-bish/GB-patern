@@ -42,7 +42,7 @@ namespace Asteroids.Enemy
         {
             EnemyDead?.Invoke(this);
             EnemyObjectPool.ReturnToPool(this);
-            Score?.Invoke("100");
+            Score?.Invoke("1500");
         }
 
     }

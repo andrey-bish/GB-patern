@@ -15,5 +15,7 @@ MonoBehaviour:
   Speed: 10
   Acceleration: 6
   Hp: 100
+  TimeRecording: 5
   PlayerPrefab: {fileID: 8672201786504361787, guid: d25e2ae89f4ff2f4ca9fb08fa6ea29ee,
     type: 3}
+  PlayerGO: {fileID: 0}

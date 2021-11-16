@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine;
 using System.Linq;
-using Asteroids.Interface;
+using UnityEngine;
+using UnityEngine.UI;
 using Asteroids.Dataset;
+using Asteroids.Interface;
 
 
 namespace Asteroids.UI
 {
-    class HealthBarInterface : IInitialization, IUpdateble
+    class HealthBarInterface : IInitialization
     {
         #region Fields
 
@@ -42,18 +42,13 @@ namespace Asteroids.UI
 
         public void Execute(StateUI stateUI, bool isSave = true)
         {
-            Debug.Log("Execute");
-            Debug.Log("Starting stateUI.Count " + StateUIStack.Count);
             if (isSave)
             {
-                Debug.Log("if (isSave)");
                 StateUIStack.Push(stateUI);
-                Debug.Log("stateUI.Count " + StateUIStack.Count);
             }
 
             if (CurrentWindow != null)
             {
-                Debug.Log("if (_currentWindow != null)");
                 CurrentWindow.Cancel();
             }
 
@@ -61,22 +56,18 @@ namespace Asteroids.UI
             {
 
                 case StateUI.TopLeftUI:
-                    Debug.Log("case StateUI.TopLeftUI:");
                     CurrentWindow = _topLeftUI;
                     CurrentWindow.GetPlayerData(_dataPlayer);
                     break;
                 case StateUI.BottomLeftUI:
-                    Debug.Log(" case StateUI.BottomLeftUI:");
                     CurrentWindow = _bottomLeftUI;
                     CurrentWindow.GetPlayerData(_dataPlayer);
                     break;
                 default:
-                    Debug.Log("default:");
                     break;
             }
 
             CurrentWindow.Execute();
-            Debug.Log("After switch stateUI.Count " + StateUIStack.Count);
         }
 
         public void PlayerHealthBar(IHealthBar healthBar)
@@ -100,9 +91,5 @@ namespace Asteroids.UI
             }
         }
 
-        public void Updateble(float deltaTime)
-        {
-            
-        }
     }
 }

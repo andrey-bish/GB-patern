@@ -92,11 +92,11 @@ namespace Asteroids.Models
 
         public void Updateble(float deltaTime)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 StartRewind();
             }
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.B))
             {
                 StopRewind();
             }

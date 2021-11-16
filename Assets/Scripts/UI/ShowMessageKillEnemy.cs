@@ -1,7 +1,6 @@
 ﻿using Asteroids.Interface;
 using Asteroids.Models;
-;
-
+using UnityEngine;
 
 namespace Asteroids.UI
 {
@@ -26,13 +25,14 @@ namespace Asteroids.UI
 
         public void Updateble(float deltaTime)
         {
+            Debug.Log(_concreteMediator._isShowPlease); 
             if (_concreteMediator._isShowPlease)
             {
-
                 _currentTime += deltaTime;
                 if (_currentTime > _timeToRemoveMessageKilledEnemy)
                 {
                     TimeRemoveMessage();
+                    _currentTime = 0.0f;
                 }
             }
         }

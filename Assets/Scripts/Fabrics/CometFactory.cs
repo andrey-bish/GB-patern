@@ -2,7 +2,7 @@
 using UnityEngine;
 using Asteroids.Dataset;
 using Asteroids.Enemy;
-using Asteroids.UI;
+using Asteroids.Models;
 
 
 namespace Asteroids.Fabrics

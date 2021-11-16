@@ -12,7 +12,15 @@ namespace Asteroids
         private long _inter;
         private long _oldScore = 0;
 
-        public Interpreter(Text score)
+        private static Interpreter obj;
+        public static Interpreter Get()
+        {
+            if (obj == null)
+                obj = new Interpreter();
+            return obj;
+        }
+
+        public void GetScore(Text score)
         {
             _score = score;
         }

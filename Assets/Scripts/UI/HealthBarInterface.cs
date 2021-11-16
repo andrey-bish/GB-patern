@@ -30,7 +30,7 @@ namespace Asteroids.UI
         {
             _bottomLeftUI = mainUI.transform.Find("Canvas/BottomLeftUI").GetComponent<BottomLeftUI>();
             _topLeftUI = mainUI.transform.Find("Canvas/TopLeftUI").GetComponent<TopLeftUI>();
-            _score = mainUI.transform.Find("Canvas/Score").GetComponent<Text>();
+            Interpreter.Get().GetScore(mainUI.transform.Find("Canvas/Score").GetComponent<Text>());
             _dataPlayer = data.Player;
             mainControllers.Add(this);
         }
@@ -84,10 +84,9 @@ namespace Asteroids.UI
             _bottomLeftUI.Cancel();
 
             var enemies = Object.FindObjectsOfType<MonoBehaviour>().OfType<IEnemy>();
-            var interpreter = new Interpreter(_score);
             foreach (var enemy in enemies)
             {
-                enemy.Score += interpreter.Scoring;
+                enemy.Score += Interpreter.Get().Scoring;
             }
         }
 

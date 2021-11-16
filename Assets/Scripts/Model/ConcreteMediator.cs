@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Asteroids.Interface;
-using Asteroids.UI;
 
 
 namespace Asteroids.Models
@@ -33,8 +32,10 @@ namespace Asteroids.Models
 
         private void ShowNameKilledEnemy(IEnemy enemy)
         {
-            _text.gameObject.SetActive(true);
             _text.text = (enemy as MonoBehaviour).gameObject.name.Replace("(Clone)", "") + " погиб!";
+            Debug.Log(_text.gameObject.activeSelf);
+            _text.gameObject.SetActive(true);
+            Debug.Log(_text.gameObject.activeSelf);
             _isShowPlease = true;
         }
 

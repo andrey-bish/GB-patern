@@ -10,11 +10,11 @@ namespace Asteroids.Dataset
         public GameObject MainUI;
 
         [Header("TopLeftUI")]
-        public TopLeftUI TopLeftUIPrefab;
+        public HealthBarUISimple TopLeftUIPrefab;
         public GameObject TopLeftUIGO;
 
         [Header("BottomLeftUI")]
-        public BottomLeftUI BottomLeftUIPrefab;
+        public HealthBarUIWhisSpacePlane BottomLeftUIPrefab;
 
     }
 }

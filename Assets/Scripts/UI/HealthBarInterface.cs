@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using Asteroids.Dataset;
 using Asteroids.Interface;
 
@@ -16,8 +15,8 @@ namespace Asteroids.UI
 
         public BaseUI CurrentWindow;
 
-        private BottomLeftUI _bottomLeftUI;
-        private TopLeftUI _topLeftUI;
+        private HealthBarUIWhisSpacePlane _healthBarUIWhisSpacePlane;
+        private HealthBarUISimple _healthBarUISimple;
         private DataPlayer _dataPlayer;
 
         #endregion
@@ -27,8 +26,8 @@ namespace Asteroids.UI
 
         public HealthBarInterface(MainControllers mainControllers, GameObject mainUI, Data data)
         {
-            _bottomLeftUI = mainUI.transform.Find("Canvas/BottomLeftUI").GetComponent<BottomLeftUI>();
-            _topLeftUI = mainUI.transform.Find("Canvas/TopLeftUI").GetComponent<TopLeftUI>();
+            _healthBarUIWhisSpacePlane = mainUI.transform.Find("Canvas/BottomLeftUI").GetComponent<HealthBarUIWhisSpacePlane>();
+            _healthBarUISimple = mainUI.transform.Find("Canvas/TopLeftUI").GetComponent<HealthBarUISimple>();
             Interpreter.Get().GetScore(mainUI.transform.Find("Canvas/Score").GetComponent<Text>());
             _dataPlayer = data.Player;
             mainControllers.Add(this);
@@ -39,27 +38,33 @@ namespace Asteroids.UI
 
         #region Methods
 
-        public void Execute(StateUI stateUI, bool isSave = true)
+        public void Execute(StateUI stateUI)
         {
-            if (isSave)
-            {
-                StateUIStack.Push(stateUI);
-            }
-
             if (CurrentWindow != null)
             {
                 CurrentWindow.Cancel();
             }
 
+            if(stateUI == StateUI.None)
+            {
+                if (StateUIStack.Count == 0)
+                    return;
+                StateUIStack.Pop();
+                if (StateUIStack.Count == 0)
+                    return;
+                stateUI = StateUIStack.Pop();
+            }
+
+            StateUIStack.Push(stateUI);
+
             switch (stateUI)
             {
-
-                case StateUI.TopLeftUI:
-                    CurrentWindow = _topLeftUI;
+                case StateUI.HealthBarUISimple:
+                    CurrentWindow = _healthBarUISimple;
                     CurrentWindow.GetPlayerData(_dataPlayer);
                     break;
-                case StateUI.BottomLeftUI:
-                    CurrentWindow = _bottomLeftUI;
+                case StateUI.HealthBarUIWhisSpacePlane:
+                    CurrentWindow = _healthBarUIWhisSpacePlane;
                     CurrentWindow.GetPlayerData(_dataPlayer);
                     break;
                 default:
@@ -79,15 +84,8 @@ namespace Asteroids.UI
 
         public void Initialization()
         {
-            _topLeftUI.Cancel();
-            _bottomLeftUI.Cancel();
-
-            //var enemies = Object.FindObjectsOfType<MonoBehaviour>().OfType<IEnemy>();
-            //foreach (var enemy in enemies)
-            //{
-            //    enemy.Score += Interpreter.Get().Scoring;
-            //}
+            _healthBarUISimple.Cancel();
+            _healthBarUIWhisSpacePlane.Cancel();
         }
-
     }
 }

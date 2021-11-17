@@ -6,7 +6,7 @@ using Asteroids.Interface;
 
 namespace Asteroids.UI
 {
-    public class TopLeftUI : BaseUI, IHealthBar
+    public class HealthBarUISimple : BaseUI, IHealthBar
     {
         [SerializeField] private Text _text;
         [SerializeField] private Slider _slider;

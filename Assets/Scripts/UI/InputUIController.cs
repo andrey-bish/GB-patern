@@ -35,27 +35,19 @@ namespace Asteroids.UI
 
         public void Updateble(float deltaTime)
         {
-            if (Input.GetKeyDown(KeyCode.F3))
-            {
-                _healthBarInterface.Execute(StateUI.TopLeftUI);
-            }
             if (Input.GetKeyDown(KeyCode.F2))
             {
-                _healthBarInterface.Execute(StateUI.BottomLeftUI);
+                _healthBarInterface.Execute(StateUI.HealthBarUIWhisSpacePlane);
             }
-            if (Input.GetKeyDown(KeyCode.F4))
+            else if (Input.GetKeyDown(KeyCode.F3))
             {
-                if (_stateUIStack.Count > 0)
-                {
-                    _healthBarInterface.Execute(_stateUIStack.Pop(), false);
-
-                }
-                else if (_stateUIStack.Count == 0)
-                {
-                    _healthBarInterface.CurrentWindow.Cancel();
-                }
+                _healthBarInterface.Execute(StateUI.HealthBarUISimple);
             }
-            if (_healthBarInterface.CurrentWindow != null)
+            else if (Input.GetKeyDown(KeyCode.F4))
+            {
+                _healthBarInterface.Execute(StateUI.None);
+            }
+            else if (_healthBarInterface.CurrentWindow != null)
             {
                 _healthBarInterface.PlayerHealthBar(_healthBarInterface.CurrentWindow);
             }

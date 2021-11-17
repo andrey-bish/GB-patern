@@ -3,7 +3,7 @@
     internal enum StateUI
     {
         None = 0,
-        TopLeftUI = 1,
-        BottomLeftUI = 2,
+        HealthBarUISimple = 1,
+        HealthBarUIWhisSpacePlane = 2,
     }
 }

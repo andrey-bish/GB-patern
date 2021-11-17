@@ -45,7 +45,6 @@ namespace Asteroids
         {
             if (collision.gameObject.TryGetComponent<IHit>(out var enemy) || collision.gameObject.CompareTag("Player")) 
             {
-                Debug.Log("chago");
                 enemy.Hit(_damage);
                 Destroy();
             }

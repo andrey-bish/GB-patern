@@ -5,13 +5,14 @@ using Asteroids.Interface;
 
 namespace Asteroids
 {
-    public class PlayerInitialize: IInitialization
+    public class PlayerInitialize: IInitialization, ICleanup
     {
         private MainControllers _mainControllers;
         private LineRenderer _lineRenderer;
         private IWeapon _weapon;
         private Data _data;
         private PlayerView _player;
+        private Health _health;
         
         private Transform _playerTranform;
 
@@ -30,10 +31,11 @@ namespace Asteroids
         //player убрать в отдельный класс, чтобы передесть _inputContorller'у в GM
         private void InitializeObj(Health health)
         {
+            _health = health;
             _player = Object.Instantiate(_data.Player.PlayerPrefab);
             _data.Player.PlayerGO = _player.gameObject;
-            _player.SetHealth(health);
-            health.Death += _player.Death;
+            _player.SetHealth(_health);
+            _health.Death += _player.Death;
             
             _playerTranform = _player.transform;
             _lineRenderer = _playerTranform.GetComponent<LineRenderer>();
@@ -47,6 +49,11 @@ namespace Asteroids
             _weapon = new Weapon(_data, _playerTranform);
 
             var inputController = new InputController(moveTranform, rotation, camera, _weapon, _mainControllers, _data, _playerTranform);
+        }
+
+        public void Cleanup()
+        {
+            _health.Death -= _player.Death;
         }
     }   
 }

@@ -3,6 +3,7 @@ using Asteroids.Interface;
 using Asteroids.ObjectPool;
 using System;
 
+
 namespace Asteroids.Enemy
 {
     public class EnemyShipView : MonoBehaviour, IEnemy, IHit
@@ -45,5 +46,9 @@ namespace Asteroids.Enemy
             Score?.Invoke("1500");
         }
 
+        private void OnDisable()
+        {
+            _health.Death -= Death;
+        }
     }
 }

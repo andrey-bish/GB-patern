@@ -25,7 +25,6 @@ namespace Asteroids.UI
 
         public void Updateble(float deltaTime)
         {
-            Debug.Log(_concreteMediator._isShowPlease); 
             if (_concreteMediator._isShowPlease)
             {
                 _currentTime += deltaTime;

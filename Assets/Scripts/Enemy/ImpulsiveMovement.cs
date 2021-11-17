@@ -8,12 +8,12 @@ namespace Asteroids.Enemy
     {
         public float Speed { get; protected set; }
 
-        private Transform _enemyShipTransform;
+        private IEnemy[] _enemyObjects;
         private Transform _playerShipTransform;
 
-        public ImpulsiveMovement(Transform enemyShipTransform, Transform playerShipTransform, float speed)
+        public ImpulsiveMovement(IEnemy[] enemyShip, Transform playerShipTransform, float speed)
         {
-            _enemyShipTransform = enemyShipTransform;
+            _enemyObjects = enemyShip;
             _playerShipTransform = playerShipTransform;
             Speed = speed;
         }
@@ -22,8 +22,12 @@ namespace Asteroids.Enemy
 
         public void Move()
         {
-            _enemyShipTransform.transform.up = _playerShipTransform.transform.position - _enemyShipTransform.transform.position;
-            _enemyShipTransform.GetComponent<Rigidbody2D>().AddForce(_enemyShipTransform.transform.up * Speed, ForceMode2D.Impulse);
+            foreach(var ss in _enemyObjects)
+            {
+
+                (ss as MonoBehaviour).transform.up = _playerShipTransform.transform.position - (ss as MonoBehaviour).transform.position;
+                (ss as MonoBehaviour).GetComponent<Rigidbody2D>().AddForce((ss as MonoBehaviour).transform.up * Speed, ForceMode2D.Impulse);
+            }
         }
     }
 }

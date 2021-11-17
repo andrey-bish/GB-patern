@@ -45,5 +45,10 @@ namespace Asteroids.Enemy
             EnemyObjectPool.ReturnToPool(this);
             Score?.Invoke("5990");
         }
+
+        private void OnDisable()
+        {
+            _health.Death -= Death;
+        }
     }
 }

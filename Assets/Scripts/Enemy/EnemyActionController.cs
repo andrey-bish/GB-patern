@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using Asteroids.Interface;
 using Asteroids.Dataset;
+using System.Linq;
+using Asteroids.Models;
 
 
 namespace Asteroids.Enemy
 {
-    class EnemyActionController : IInitialization, IFixUpdateble
+    class EnemyActionController : IInitialization, IFixUpdateble, ICleanup
     {
         #region Fields
 
@@ -38,12 +40,12 @@ namespace Asteroids.Enemy
         {
             _playerShipTranform = GameObject.FindGameObjectWithTag("Player").transform;
 
-            var asteroid = GameObject.FindObjectOfType<AsteroidView>().transform;
-            var comet = GameObject.FindObjectOfType<CometView>().transform;
-            _enemyShipTranform = GameObject.FindObjectOfType<EnemyShipView>().transform;
+            var asteroids = Object.FindObjectsOfType<AsteroidView>();
+            var comets = Object.FindObjectsOfType<CometView>();
+            _enemyShipTranform = Object.FindObjectOfType<EnemyShipView>().transform;
 
-            new EnemyController(new ImpulsiveMovement(asteroid.transform, _playerShipTranform, _data.Enemies.ImpulseStrenge)).Move();
-            new EnemyController(new ImpulsiveMovement(comet.transform, _playerShipTranform, _data.Enemies.ImpulseStrenge)).Move();
+            new EnemyController(new ImpulsiveMovement(asteroids, _playerShipTranform, _data.Enemies.ImpulseStrenge)).Move();
+            new EnemyController(new ImpulsiveMovement(comets, _playerShipTranform, _data.Enemies.ImpulseStrenge)).Move();
 
             _enemyController = new EnemyController(new EnemyShipMovement(_enemyShipTranform, _playerShipTranform, _data), new EnemyShipRotation(_enemyShipTranform),
                 new EnemyShipShooting(_enemyShipTranform, _playerShipTranform, _data.Weapon, _data.Enemies.RangeAtack));
@@ -63,6 +65,23 @@ namespace Asteroids.Enemy
                 _enemyController.Move(_playerShipTranform.position.x - _enemyShipTranform.position.x, _playerShipTranform.position.y - _enemyShipTranform.position.y, deltaTime);
                 _enemyController.Rotation(_playerShipTranform.position - _enemyShipTranform.position);
                 _enemyController.Shooting();
+            }
+        }
+
+        #endregion
+
+
+        #region CleanUP
+
+        public void Cleanup()
+        {
+            var enemies = Object.FindObjectsOfType<MonoBehaviour>().OfType<IEnemy>();
+            Debug.Log(enemies.ToList().Count);
+            foreach (var enemy in enemies)
+            {
+                Debug.Log(enemy + " отписался");
+                enemy.Score -= Interpreter.Get().Scoring;
+                enemy.EnemyDead -= ConcreteMediator.Get().Notify;
             }
         }
 

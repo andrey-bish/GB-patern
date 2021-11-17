@@ -19,7 +19,6 @@ namespace Asteroids.UI
         private BottomLeftUI _bottomLeftUI;
         private TopLeftUI _topLeftUI;
         private DataPlayer _dataPlayer;
-        private Text _score;
 
         #endregion
 
@@ -83,11 +82,11 @@ namespace Asteroids.UI
             _topLeftUI.Cancel();
             _bottomLeftUI.Cancel();
 
-            var enemies = Object.FindObjectsOfType<MonoBehaviour>().OfType<IEnemy>();
-            foreach (var enemy in enemies)
-            {
-                enemy.Score += Interpreter.Get().Scoring;
-            }
+            //var enemies = Object.FindObjectsOfType<MonoBehaviour>().OfType<IEnemy>();
+            //foreach (var enemy in enemies)
+            //{
+            //    enemy.Score += Interpreter.Get().Scoring;
+            //}
         }
 
     }

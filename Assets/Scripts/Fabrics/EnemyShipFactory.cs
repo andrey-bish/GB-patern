@@ -24,7 +24,8 @@ namespace Asteroids.Fabrics
             enemy.SetHealth(health);
             health.Death += enemy.Death;
             enemy.EnemyDead += ConcreteMediator.Get().Notify;
-
+            enemy.Score += Interpreter.Get().Scoring;
+            Debug.Log(enemy + " подписан");
             new EnemiesSpawn(_dataPlayer).RandomSpawnLocation(enemy);
 
             return enemy;

@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 
 namespace Asteroids

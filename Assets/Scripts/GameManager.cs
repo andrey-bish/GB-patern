@@ -32,10 +32,11 @@ namespace Asteroids
             _mainControllers.FixUpdateble(deltaTime);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             _mainControllers.Cleanup();
         }
+
 
         #endregion
     }

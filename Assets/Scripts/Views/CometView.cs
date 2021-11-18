@@ -11,6 +11,7 @@ namespace Asteroids.Enemy
         public event Action<float> OnHitChange = delegate (float f) { };
         public event Action<string> Score;
         public event Action<IEnemy> EnemyDead;
+        public event Action<IEnemy> TestEnemyDead;
 
         private Health _health;
 
@@ -34,21 +35,23 @@ namespace Asteroids.Enemy
 
         public void Hit(float damage)
         {
-            OnHitChange.Invoke(damage);
+           
             Damage(damage);
             //Destroy();
         }
 
         private void Destroy()
         {
-            EnemyDead?.Invoke(this);
+            TestEnemyDead?.Invoke(this);
+            //EnemyDead?.Invoke(this);
             EnemyObjectPool.ReturnToPool(this);
             Score?.Invoke("5990");
         }
 
         private void OnDisable()
         {
-            _health.Death -= Death;
+            new ListenerShowMessageDeathEnemy().Remove(this);
+            //_health.Death -= Death;
         }
     }
 }

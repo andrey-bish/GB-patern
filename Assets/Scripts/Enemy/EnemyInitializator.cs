@@ -12,30 +12,23 @@ namespace Asteroids.Enemy
 {
     class EnemyInitializator : IInitialization, IUpdateble
     {
-        private readonly IEnemiesFactory _enemiesFactory;
-
         private MainControllers _mainControllers;
         private readonly Data _data;
 
 
-        public EnemyInitializator(IEnemiesFactory enemiesFactory, MainControllers mainControllers, Data data)
+        public EnemyInitializator( MainControllers mainControllers, Data data)
         {
-            _enemiesFactory = enemiesFactory;
             _mainControllers = mainControllers;
             _data = data;
         }
 
         public void Initialization()
         {
-            //Создание противника через статический метод
-            //EnemyClass.CreateAsteroidEnemy(new Health(40.0f));
-
-            //Создание противника через фабрику
-            //_enemiesFactory.Create(new Health(40.0f));
-
-            //Создание противника в PoolObject'е
+            EnemyObjectPool._listenerHitShowDamage = new ListenerShowMessageDeathEnemy();
             CreateEnemiesAndAddToObjectPool();
             new EnemyActionController(_mainControllers, _data);
+            Debug.Log(string.Join("\n", EnemyObjectPool._enemyCollection.Select(o=> $"{o.Key}-{o.Value}")));
+            
         }
 
         private void CreateEnemiesAndAddToObjectPool()

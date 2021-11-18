@@ -11,6 +11,7 @@ namespace Asteroids.Enemy
         public event Action<float> OnHitChange = delegate (float f) { };
         public event Action<string> Score;
         public event Action<IEnemy> EnemyDead;
+        public event Action<IEnemy> TestEnemyDead;
 
         private Health _health;
 
@@ -34,7 +35,7 @@ namespace Asteroids.Enemy
 
         public void Hit(float damage)
         {
-            OnHitChange.Invoke(damage);
+            OnHitChange?.Invoke(damage);
             Damage(damage);
             //Destroy();
         }

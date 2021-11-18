@@ -11,21 +11,24 @@ namespace Asteroids.Fabrics
     {
         private readonly DataEnemies _dataEnemies;
         private readonly DataPlayer _dataPlayer;
+        private readonly ListenerShowMessageDeathEnemy _listenerShowMessageDeathEnemy;
 
-        public EnemyShipFactory(Data data)
+        public EnemyShipFactory(Data data, ListenerShowMessageDeathEnemy listenerShowMessageDeathEnemy)
         {
             _dataEnemies = data.Enemies;
             _dataPlayer = data.Player;
+            _listenerShowMessageDeathEnemy = listenerShowMessageDeathEnemy;
         }
 
         public IEnemy Create(Health health)
         {
             var enemy = Object.Instantiate(_dataEnemies.EnemyShipPrefab);
             enemy.SetHealth(health);
-            health.Death += enemy.Death;
+            //health.Death += enemy.Death;
             enemy.EnemyDead += ConcreteMediator.Get().Notify;
             enemy.Score += Interpreter.Get().Scoring;
-            Debug.Log(enemy + " подписан");
+            _listenerShowMessageDeathEnemy.Add(enemy);
+            //Debug.Log(enemy + " подписан");
             new EnemiesSpawn(_dataPlayer).RandomSpawnLocation(enemy);
 
             return enemy;

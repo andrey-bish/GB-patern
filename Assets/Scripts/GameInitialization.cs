@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Asteroids.Dataset;
 using Asteroids.Enemy;
-using Asteroids.Fabrics;
 using Asteroids.UI;
 using Asteroids.Interface;
 
@@ -31,7 +30,7 @@ namespace Asteroids
         
         private EnemyInitializator EnemyInitialization(Data data, MainControllers mainControllers)
         {
-            return new EnemyInitializator(new AsteroidFactory(data), mainControllers, data);
+            return new EnemyInitializator(mainControllers, data);
         }
 
         private Bullet BulletInitialization(Data data)

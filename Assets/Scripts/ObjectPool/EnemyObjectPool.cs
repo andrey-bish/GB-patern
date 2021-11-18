@@ -15,19 +15,21 @@ namespace Asteroids.ObjectPool
 
         private static Data _data;
 
+        public static ListenerShowMessageDeathEnemy _listenerHitShowDamage;
+
        private static IEnemy CreateEnemy(string typeEnemies)
         {
             IEnemy enemy = null;
             switch(typeEnemies)
             {
                 case "AsteroidView":
-                    enemy = new AsteroidFactory(_data).Create(new Enemy.Health(_data.Enemies.Hp));
+                    enemy = new AsteroidFactory(_data, _listenerHitShowDamage).Create(new Enemy.Health(_data.Enemies.Hp));
                     break;
                 case "CometView":
-                    enemy = new CometFactory(_data).Create(new Enemy.Health(_data.Enemies.Hp));
+                    enemy = new CometFactory(_data, _listenerHitShowDamage).Create(new Enemy.Health(_data.Enemies.Hp));
                     break;
                 case "EnemyShipView":
-                    enemy = new EnemyShipFactory(_data).Create(new Enemy.Health(_data.Enemies.Hp));
+                    enemy = new EnemyShipFactory(_data, _listenerHitShowDamage).Create(new Enemy.Health(_data.Enemies.Hp));
                     break;
                 default:
                     throw new NullReferenceException("The specified enemy type was not found.");
@@ -42,10 +44,8 @@ namespace Asteroids.ObjectPool
                 Debug.Log(_enemyCollection[typeEnemies]);
                 return _enemyCollection[typeEnemies];
             }
-                
             else
                 return _enemyCollection[typeEnemies] = new HashSet<IEnemy>();
-                
         }
 
         public static T GetEnemy<T>(Data data) where T: IEnemy
@@ -58,12 +58,12 @@ namespace Asteroids.ObjectPool
             if (enemy == null)
             {
                 enemy = CreateEnemy(type);
+                Debug.Log("Added enemy: " + enemy);
                 list.Add(enemy);
             }
             else
             {
                 Debug.Log("Return enemy");
-                
             }
             (enemy as MonoBehaviour).gameObject.SetActive(true);
             return (T)enemy;

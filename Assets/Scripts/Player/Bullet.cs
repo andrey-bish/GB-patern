@@ -13,7 +13,7 @@ namespace Asteroids
         public float Damage => _damage;
 
         private DataEnemies _dataEnemies;
-        private ListenerHitShowDamage _listenerHitShowDamage;
+        private ListenerShowMessageDeathEnemy _listenerHitShowDamage;
 
 
         public Bullet(DataEnemies dataEnemies)

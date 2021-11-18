@@ -3,7 +3,8 @@ using Asteroids.Interface;
 using Asteroids.Dataset;
 using System.Linq;
 using Asteroids.Models;
-
+using Asteroids.ObjectPool;
+using System.Collections.Generic;
 
 namespace Asteroids.Enemy
 {
@@ -75,14 +76,27 @@ namespace Asteroids.Enemy
 
         public void Cleanup()
         {
-            var enemies = Object.FindObjectsOfType<MonoBehaviour>().OfType<IEnemy>();
-            Debug.Log(enemies.ToList().Count);
-            foreach (var enemy in enemies)
+            Debug.Log("1$ " + string.Join("\n", EnemyObjectPool._enemyCollection.Select(o => $"{o.Key}-{o.Value}")));
+            foreach (KeyValuePair<string, HashSet<IEnemy>> enemies in EnemyObjectPool._enemyCollection)
             {
-                Debug.Log(enemy + " отписался");
-                enemy.Score -= Interpreter.Get().Scoring;
-                enemy.EnemyDead -= ConcreteMediator.Get().Notify;
+                Debug.Log($"Value: {enemies.Value} Key: {enemies.Key}");
+                foreach (var enemy in enemies.Value)
+                {
+                    Debug.Log($"Enemy: {enemy}");
+                    enemy.Score -= Interpreter.Get().Scoring;
+                    enemy.EnemyDead -= ConcreteMediator.Get().Notify;
+                }
             }
+
+            Debug.Log("2$ " + string.Join("\n", EnemyObjectPool._enemyCollection.Select(o => $"{o.Key}-{o.Value}")));
+            //var enemies = Object.FindObjectsOfType<MonoBehaviour>().OfType<IEnemy>();
+            //Debug.Log(enemies.ToList().Count);
+            //foreach (var enemy in enemies)
+            //{
+            //    Debug.Log(enemy + " отписался");
+            //    enemy.Score -= Interpreter.Get().Scoring; 6
+            //    enemy.EnemyDead -= ConcreteMediator.Get().Notify;
+            //}
         }
 
         #endregion

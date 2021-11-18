@@ -11,6 +11,7 @@ namespace Asteroids.Enemy
         public event Action<float> OnHitChange = delegate (float f) { };
         public event Action<string> Score;
         public event Action<IEnemy> EnemyDead;
+        public event Action<IEnemy> TestEnemyDead;
 
         private Health _health;
 

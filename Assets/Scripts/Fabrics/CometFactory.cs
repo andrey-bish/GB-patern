@@ -11,11 +11,13 @@ namespace Asteroids.Fabrics
     {
         private readonly DataEnemies _dataEnemies;
         private readonly DataPlayer _dataPlayer;
+        private readonly ListenerShowMessageDeathEnemy _listenerShowMessageDeathEnemy;
 
-        public CometFactory(Data data)
+        public CometFactory(Data data, ListenerShowMessageDeathEnemy listenerShowMessageDeathEnemy)
         {
             _dataEnemies = data.Enemies;
             _dataPlayer = data.Player;
+            _listenerShowMessageDeathEnemy = listenerShowMessageDeathEnemy;
         }
 
         public IEnemy Create()
@@ -27,10 +29,11 @@ namespace Asteroids.Fabrics
         {
             var enemy = Object.Instantiate(_dataEnemies.CometPrefab);
             enemy.SetHealth(health);
-            health.Death += enemy.Death;
-            enemy.EnemyDead += ConcreteMediator.Get().Notify;
+            //health.Death += enemy.Death;
+            //enemy.EnemyDead += ConcreteMediator.Get().Notify;
             enemy.Score += Interpreter.Get().Scoring;
-            Debug.Log(enemy + " подписан");
+            _listenerShowMessageDeathEnemy.Add(enemy);
+            //Debug.Log(enemy + " подписан");
             new EnemiesSpawn(_dataPlayer).RandomSpawnLocation(enemy);
 
             return enemy;

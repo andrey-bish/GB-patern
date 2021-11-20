@@ -28,15 +28,20 @@ namespace Asteroids.Fabrics
         public IEnemy Create(Health health)
         {
             var enemy = Object.Instantiate(_dataEnemies.CometPrefab);
+            ManipulationWithEnemy(enemy, health);
+            return enemy;
+        }
+
+        private void ManipulationWithEnemy(CometView enemy, Health health)
+        {
             enemy.SetHealth(health);
-            //health.Death += enemy.Death;
+            enemy.KillPoint = _dataEnemies.CometKillPoint;
+            health.OnDeath += enemy.Death;
             //enemy.EnemyDead += ConcreteMediator.Get().Notify;
-            enemy.Score += Interpreter.Get().Scoring;
+            //enemy.Score += Interpreter.Get().Scoring;
             _listenerShowMessageDeathEnemy.Add(enemy);
             //Debug.Log(enemy + " подписан");
             new EnemiesSpawn(_dataPlayer).RandomSpawnLocation(enemy);
-
-            return enemy;
         }
     }
 }

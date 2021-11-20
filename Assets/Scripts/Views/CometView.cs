@@ -15,12 +15,23 @@ namespace Asteroids.Enemy
 
         private Health _health;
 
+        private string _killPoints;
+
+        public string KillPoint
+        {
+            set => _killPoints = value;
+        }
+
         public void SetHealth(Health health)
         {
-            if (_health == null)
+            if (_health == null || _health.CurrentHP <= 0)
             {
                 _health = health;
             }
+        }
+        public void Recreate()
+        {
+            _health.SetHp();
         }
 
         public void Damage(float point)
@@ -45,13 +56,12 @@ namespace Asteroids.Enemy
             TestEnemyDead?.Invoke(this);
             //EnemyDead?.Invoke(this);
             EnemyObjectPool.ReturnToPool(this);
-            Score?.Invoke("5990");
+            Score?.Invoke(_killPoints);
         }
 
         private void OnDisable()
         {
-            new ListenerShowMessageDeathEnemy().Remove(this);
-            //_health.Death -= Death;
+            _health.OnDeath -= Death;
         }
     }
 }

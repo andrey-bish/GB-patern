@@ -5,7 +5,7 @@ using Asteroids.Interface;
 
 namespace Asteroids
 {
-    class ListenerShowMessageDeathEnemy
+    class ListenerShowMessageDeathEnemy: MonoBehaviour
     {
         public bool _isShowPlease = false;
 
@@ -23,13 +23,20 @@ namespace Asteroids
 
         private void ShowMessageDeathEnemy(IEnemy enemy)
         {
-            _text.text = (enemy as MonoBehaviour).gameObject.name.Replace("(Clone)", "") + " погиб!";
-            _text.gameObject.SetActive(true);
-            _isShowPlease = true;
+            Debug.Log("Observer!!");
+            //_text.text = (enemy as MonoBehaviour).gameObject.name.Replace("(Clone)", "") + " погиб!";
+            //_text.gameObject.SetActive(true);
+            //_isShowPlease = true;
+            Remove(enemy);
         }
         public void RemoveNameKilledEnemy()
         {
             _text.gameObject.SetActive(false);
+        }
+
+        private void OnDisable()
+        {
+            
         }
     }
 }

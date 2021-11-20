@@ -35,7 +35,7 @@ namespace Asteroids
             _player = Object.Instantiate(_data.Player.PlayerPrefab);
             _data.Player.PlayerGO = _player.gameObject;
             _player.SetHealth(_health);
-            _health.Death += _player.Death;
+            _health.OnDeath += _player.Death;
             
             _playerTranform = _player.transform;
             _lineRenderer = _playerTranform.GetComponent<LineRenderer>();
@@ -53,7 +53,7 @@ namespace Asteroids
 
         public void Cleanup()
         {
-            _health.Death -= _player.Death;
+            //_health.OnDeath -= _player.Death;
         }
     }   
 }

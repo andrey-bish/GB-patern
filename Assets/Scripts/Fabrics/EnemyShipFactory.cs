@@ -23,15 +23,19 @@ namespace Asteroids.Fabrics
         public IEnemy Create(Health health)
         {
             var enemy = Object.Instantiate(_dataEnemies.EnemyShipPrefab);
+            ManipulationWithEnemy(enemy, health);
+            return enemy;
+        }
+        private void ManipulationWithEnemy(EnemyShipView enemy, Health health)
+        {
             enemy.SetHealth(health);
-            //health.Death += enemy.Death;
-            enemy.EnemyDead += ConcreteMediator.Get().Notify;
-            enemy.Score += Interpreter.Get().Scoring;
+            enemy.KillPoint = _dataEnemies.EnemyShipKillPoint;
+            health.OnDeath += enemy.Death;
+            //enemy.EnemyDead += ConcreteMediator.Get().Notify;
+            //enemy.Score += Interpreter.Get().Scoring;
             _listenerShowMessageDeathEnemy.Add(enemy);
             //Debug.Log(enemy + " подписан");
             new EnemiesSpawn(_dataPlayer).RandomSpawnLocation(enemy);
-
-            return enemy;
         }
     }
 }

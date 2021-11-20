@@ -5,6 +5,7 @@ using UnityEngine;
 using Asteroids.Interface;
 using Asteroids.Fabrics;
 using Asteroids.Dataset;
+using Asteroids.Enemy;
 
 
 namespace Asteroids.ObjectPool
@@ -20,16 +21,20 @@ namespace Asteroids.ObjectPool
        private static IEnemy CreateEnemy(string typeEnemies)
         {
             IEnemy enemy = null;
-            switch(typeEnemies)
+            switch (typeEnemies)
             {
                 case "AsteroidView":
-                    enemy = new AsteroidFactory(_data, _listenerHitShowDamage).Create(new Enemy.Health(_data.Enemies.Hp));
+                    //if(!isCreated)
+                    //enemy = new AsteroidFactory(_data, _listenerHitShowDamage).Create(new Health(_data.Enemies.Hp));
+                    //else
+                    //enemy = new AsteroidFactory(_data, _listenerHitShowDamage).ManipulationWithEnemy(, new Health(_data.Enemies.Hp));
+                    enemy = new AsteroidFactory(_data, _listenerHitShowDamage).Create(new Health(_data.Enemies.Hp));
                     break;
                 case "CometView":
-                    enemy = new CometFactory(_data, _listenerHitShowDamage).Create(new Enemy.Health(_data.Enemies.Hp));
+                    enemy = new CometFactory(_data, _listenerHitShowDamage).Create(new Health(_data.Enemies.Hp));
                     break;
                 case "EnemyShipView":
-                    enemy = new EnemyShipFactory(_data, _listenerHitShowDamage).Create(new Enemy.Health(_data.Enemies.Hp));
+                    enemy = new EnemyShipFactory(_data, _listenerHitShowDamage).Create(new Health(_data.Enemies.Hp));
                     break;
                 default:
                     throw new NullReferenceException("The specified enemy type was not found.");
@@ -41,7 +46,6 @@ namespace Asteroids.ObjectPool
         {
             if (_enemyCollection.ContainsKey(typeEnemies))
             {   
-                Debug.Log(_enemyCollection[typeEnemies]);
                 return _enemyCollection[typeEnemies];
             }
             else
@@ -63,6 +67,10 @@ namespace Asteroids.ObjectPool
             }
             else
             {
+                //подписка на Observer
+                //выдать хп
+                _listenerHitShowDamage.Add(enemy);
+                enemy.Recreate();
                 Debug.Log("Return enemy");
             }
             (enemy as MonoBehaviour).gameObject.SetActive(true);

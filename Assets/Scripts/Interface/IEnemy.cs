@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Asteroids.Enemy;
 
 namespace Asteroids.Interface
 {
@@ -11,5 +11,10 @@ namespace Asteroids.Interface
         event Action<IEnemy> TestEnemyDead;
         event Action<string> Score;
         event Action<IEnemy> EnemyDead;
+
+        string KillPoint { set; }
+
+        void SetHealth(Health health);
+        void Recreate();
     }
 }

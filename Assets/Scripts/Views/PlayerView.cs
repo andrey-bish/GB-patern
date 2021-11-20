@@ -48,5 +48,10 @@ namespace Asteroids
         {
             Destroy(gameObject);
         }
+
+        private void OnDisable()
+        {
+            _health.OnDeath -= Death;
+        }
     }
 }

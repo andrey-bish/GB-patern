@@ -1,13 +1,10 @@
 ﻿using System;
-using UnityEngine.UI;
 
 
 namespace Asteroids
 {
     class Interpreter
     {
-        private Text _score;
-        
         private long _inter;
         private long _oldScore = 0;
 
@@ -19,21 +16,17 @@ namespace Asteroids
             return obj;
         }
 
-        public void GetScore(Text score)
-        {
-            _score = score;
-        }
-
-        public void Scoring(string value)
+        public string Scoring(string value)
         {
             long.TryParse(value, out _inter);
-            _score.text = "Score: " + Interpretation(_inter);
+            return Interpretation(_inter);
         }
 
         private string Interpretation(long inter)
         {
             inter += _oldScore;
             _oldScore = inter;
+
             if (inter < 0) 
                 throw new ArgumentException("Zero in interpreter");
             if (inter >= 1_000_000_000)

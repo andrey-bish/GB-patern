@@ -13,11 +13,14 @@ namespace Asteroids
 
         #region Unity Methods
 
-        private void Start()
+        private void Awake()
         {
             _mainControllers = new MainControllers();
-            var InitializationGame = new GameInitialization();
-            InitializationGame.StartGame(_data, _mainControllers);
+            new GameAwake().AwakeGame(_data, _mainControllers);
+        }
+        private void Start()
+        {
+            new GameInitialization().StartGame(_data, _mainControllers);
         }
 
         private void Update()
@@ -36,7 +39,6 @@ namespace Asteroids
         {
             _mainControllers.Cleanup();
         }
-
 
         #endregion
     }

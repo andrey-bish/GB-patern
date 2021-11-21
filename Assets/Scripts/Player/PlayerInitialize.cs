@@ -53,7 +53,7 @@ namespace Asteroids
 
         public void Cleanup()
         {
-            //_health.OnDeath -= _player.Death;
+            _health.OnDeath -= _player.Death;
         }
     }   
 }

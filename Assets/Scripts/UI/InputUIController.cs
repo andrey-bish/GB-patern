@@ -22,10 +22,10 @@ namespace Asteroids.UI
 
         public InputUIController(MainControllers mainControllers, GameObject mainUI, Data data)
         {
+            data.UI.LinkToMainUI = mainUI;
             _healthBarInterface = new HealthBarInterface(mainControllers, mainUI, data);
             _stateUIStack = _healthBarInterface.StateUIStack;
             mainControllers.Add(this);
-            mainControllers.Add(new ImplementationMediator(mainUI, mainControllers));
         }
 
         #endregion

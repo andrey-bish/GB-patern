@@ -1,6 +1,7 @@
 ﻿using Asteroids.Interface;
 using Asteroids.ObjectPool;
 using Asteroids.Dataset;
+using Asteroids.UI;
 
 
 namespace Asteroids.Enemy
@@ -20,7 +21,7 @@ namespace Asteroids.Enemy
 
         public void Initialization()
         {
-            EnemyObjectPool._listenerHitShowDamage = new ListenerShowMessageDeathEnemy();
+            HandOverListenerDeathEnemy(new ListenerShowMessageDeathEnemy(_data));
             CreateEnemiesAndAddToObjectPool();
             new EnemyActionController(_mainControllers, _data);
         }
@@ -30,6 +31,12 @@ namespace Asteroids.Enemy
             EnemyObjectPool.GetEnemy<AsteroidView>(_data);
             EnemyObjectPool.GetEnemy<CometView>(_data);
             EnemyObjectPool.GetEnemy<EnemyShipView>(_data);
+        }
+
+        private void HandOverListenerDeathEnemy(ListenerShowMessageDeathEnemy listenerShowMessageDeathEnemy)
+        {
+            EnemyObjectPool._listenerHitShowDamage = listenerShowMessageDeathEnemy;
+            new ShowMessageKillEnemy().GetMainController(_mainControllers, listenerShowMessageDeathEnemy);
         }
     }
 }

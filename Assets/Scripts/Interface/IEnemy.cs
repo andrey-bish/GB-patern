@@ -12,7 +12,7 @@ namespace Asteroids.Interface
         event Action<string> Score;
         event Action<IEnemy> EnemyDead;
 
-        string KillPoint { set; }
+        string KillPoint { get; set; }
 
         void SetHealth(Health health);
         void Recreate();

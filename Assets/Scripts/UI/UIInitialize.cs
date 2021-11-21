@@ -5,7 +5,7 @@ using Asteroids.Interface;
 
 namespace Asteroids.UI
 {
-    class UIInitialize : IInitialization
+    class UIInitialize : IAwakeble
     {
         private Data _data;
         private MainControllers _mainControllers;
@@ -15,12 +15,8 @@ namespace Asteroids.UI
             _data = data;
             _mainControllers = mainControllers;
         }
-        public void Initialization()
-        {
-            InitializeUI();
-        }
 
-        private void InitializeUI()
+        public void Awakeble()
         {
             new InputUIController(_mainControllers, Object.Instantiate(_data.UI.MainUI), _data);
         }

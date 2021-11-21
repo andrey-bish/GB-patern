@@ -8,6 +8,7 @@ namespace Asteroids.Dataset
     public class DataUI : ScriptableObject
     {
         public GameObject MainUI;
+        public GameObject LinkToMainUI;
 
         [Header("TopLeftUI")]
         public HealthBarUISimple TopLeftUIPrefab;

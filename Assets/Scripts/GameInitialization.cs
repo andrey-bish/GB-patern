@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Asteroids.Dataset;
 using Asteroids.Enemy;
-using Asteroids.UI;
 using Asteroids.Interface;
 
 
@@ -16,7 +15,6 @@ namespace Asteroids
             InitializeObjectList.Add(PlayerInitialization(data, mainControllers));
             InitializeObjectList.Add(EnemyInitialization(data, mainControllers));
             InitializeObjectList.Add(BulletInitialization(data));
-            InitializeObjectList.Add(UIInitialization(data, mainControllers));
 
             AddInMainController(InitializeObjectList, mainControllers);
 
@@ -36,11 +34,6 @@ namespace Asteroids
         private Bullet BulletInitialization(Data data)
         {
             return new Bullet(data.Enemies);
-        }
-
-        private UIInitialize UIInitialization(Data data, MainControllers mainControllers)
-        {
-            return new UIInitialize(data, mainControllers);
         }
 
         private void AddInMainController(List<IInitialization> InitializeObjectList, MainControllers mainControllers)

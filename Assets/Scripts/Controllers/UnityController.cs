@@ -4,8 +4,9 @@ using Asteroids.Interface;
 
 namespace Asteroids
 {
-    public sealed class MainControllers : IInitialization, IUpdateble, IFixUpdateble, ICleanup
+    public sealed class MainControllers : IAwakeble, IInitialization, IUpdateble, IFixUpdateble, ICleanup
     {
+        private readonly List<IAwakeble> _awakebleConrollers;
         private readonly List<IInitialization> _initializationControllers;
         private readonly List<IUpdateble> _updatebleControllers;
         private readonly List<IFixUpdateble> _fixUpdatebleControllers;
@@ -13,6 +14,7 @@ namespace Asteroids
 
         internal MainControllers()
         {
+            _awakebleConrollers = new List<IAwakeble>();
             _initializationControllers = new List<IInitialization>();
             _updatebleControllers = new List<IUpdateble>();
             _fixUpdatebleControllers = new List<IFixUpdateble>();
@@ -24,6 +26,11 @@ namespace Asteroids
 
         internal MainControllers Add(IController controller)
         {
+            if(controller is IAwakeble awakebleController)
+            {
+                _awakebleConrollers.Add(awakebleController);
+            }
+
             if (controller is IInitialization initializeController)
             {
                 _initializationControllers.Add(initializeController);
@@ -51,6 +58,14 @@ namespace Asteroids
 
 
         #region Implementation interface
+
+        public void Awakeble()
+        {
+            for(var index = 0; index < _awakebleConrollers.Count; ++index)
+            {
+                _awakebleConrollers[index].Awakeble();
+            }
+        }
 
         public void Initialization()
         {

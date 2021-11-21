@@ -28,7 +28,7 @@ namespace Asteroids.UI
         {
             _healthBarUIWhisSpacePlane = mainUI.transform.Find("Canvas/BottomLeftUI").GetComponent<HealthBarUIWhisSpacePlane>();
             _healthBarUISimple = mainUI.transform.Find("Canvas/TopLeftUI").GetComponent<HealthBarUISimple>();
-            Interpreter.Get().GetScore(mainUI.transform.Find("Canvas/Score").GetComponent<Text>());
+            //Interpreter.Get().GetScore(mainUI.transform.Find("Canvas/Score").GetComponent<Text>());
             _dataPlayer = data.Player;
             mainControllers.Add(this);
         }

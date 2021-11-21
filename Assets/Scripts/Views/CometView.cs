@@ -19,6 +19,7 @@ namespace Asteroids.Enemy
 
         public string KillPoint
         {
+            get => _killPoints;
             set => _killPoints = value;
         }
 

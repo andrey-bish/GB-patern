@@ -1,5 +1,6 @@
 ﻿using Asteroids.Interface;
 
+
 namespace Asteroids.Modification
 {
     class WeaponModification

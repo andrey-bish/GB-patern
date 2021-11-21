@@ -2,6 +2,7 @@
 using Asteroids.Interface;
 using Asteroids.Dataset;
 
+
 namespace Asteroids.Modification
 {
     class AddMuffler : WeaponModification
@@ -21,13 +22,9 @@ namespace Asteroids.Modification
         public override void Handle()
         {
             if(_mufflerGO == null)
-            {
                _weapon.SetBarrelPosition(_playerTransform.Find("Muffler(Clone)").GetChild(0));
-            }
             else
-            {
                 _weapon.SetBarrelPosition(_mufflerGO.transform.Find("ShotLocation"));
-            }
             
             base.Handle();
         }

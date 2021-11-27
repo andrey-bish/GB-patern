@@ -3,6 +3,7 @@ using Asteroids.Interface;
 using Asteroids.Dataset;
 using Asteroids.Modification;
 using Asteroids.Models;
+using Asteroids.ObjectPool;
 
 
 namespace Asteroids
@@ -44,18 +45,18 @@ namespace Asteroids
 
         #region UnityMethods
 
+        public void Updateble(float deltaTime)
+        {
+            CameraCursorTracking();
+            CheckInputKey(deltaTime);
+        }
+
         public void Initialization()
         {
             _actionWithLaserAim = new ActionWithLaserAim(_playerTransform, _mainControllers);
             _actionWithMuffler = new ActionWithMuffler();
             _chainOfResponsibility = new ChainOfResponsibility();
             _mainControllers.Add(new TimeRewinder(_data.Player.TimeRecording));
-        }
-
-        public void Updateble(float deltaTime)
-        {
-            CameraCursorTracking();
-            CheckInputKey(deltaTime);
         }
 
         #endregion
@@ -65,6 +66,10 @@ namespace Asteroids
 
         private void InteractionWithMuffler()
         { 
+            //Вот так глушитель можно надеть, но вот снять его уже не получится
+            //new ActionWithMuffler().InstallationRemovalMuffler(_data, _playerTranform, _weapon);
+
+            //А так уже всё нормально работает
             _actionWithMuffler.InstallationRemovalMuffler(_data, _playerTransform, _weapon);
         }
 

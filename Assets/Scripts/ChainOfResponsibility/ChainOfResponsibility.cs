@@ -21,10 +21,15 @@ namespace Asteroids.Modification
 
         public void InstallationRemovalMuffler(Transform playerTransform, DataWeapon dataWeapon, IWeapon weapon)
         {
+
             if (!_isMuffler)
+            {
                 InstallationMuffler(playerTransform, dataWeapon, weapon);
+            }
             else
-                RemoveMuffler(playerTransform, dataWeapon, weapon);
+            {
+                RmoveMuffler(playerTransform, dataWeapon, weapon);
+            }
         }
 
         #region Methods
@@ -39,7 +44,7 @@ namespace Asteroids.Modification
             _weaponModification.Handle();
         }
 
-        private void RemoveMuffler(Transform playerTransform, DataWeapon dataWeapon, IWeapon weapon)
+        private void RmoveMuffler(Transform playerTransform, DataWeapon dataWeapon, IWeapon weapon)
         {
             _isMuffler = false;
             _weaponModification.Add(new EditAttackModification(weapon, dataWeapon.Damage));

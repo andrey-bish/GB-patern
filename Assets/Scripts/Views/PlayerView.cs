@@ -2,7 +2,6 @@
 using Asteroids.Interface;
 using System;
 using Asteroids.Enemy;
-using Asteroids.Dataset;
 
 
 namespace Asteroids
@@ -46,7 +45,8 @@ namespace Asteroids
 
         private void Destroy()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
 
         private void OnDisable()

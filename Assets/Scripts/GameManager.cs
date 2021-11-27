@@ -7,6 +7,7 @@ namespace Asteroids
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private Data _data;
+        //[SerializeField] private Camera camera;
 
         private MainControllers _mainControllers;
 
@@ -20,6 +21,7 @@ namespace Asteroids
         }
         private void Start()
         {
+            //_data.Player.Camera = camera;
             new GameInitialization().StartGame(_data, _mainControllers);
         }
 

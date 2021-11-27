@@ -54,10 +54,8 @@ namespace Asteroids.Enemy
 
         private void Destroy()
         {
-            EnemyDead?.Invoke(this);
-            EnemyObjectPool.ReturnToPool(this);
-            Score?.Invoke(_killPoints);
             TestEnemyDead?.Invoke(this);
+            EnemyObjectPool.ReturnToPool(this);
         }
 
         private void OnDisable()

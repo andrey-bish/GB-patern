@@ -24,10 +24,6 @@ namespace Asteroids.ObjectPool
             switch (typeEnemies)
             {
                 case "AsteroidView":
-                    //if(!isCreated)
-                    //enemy = new AsteroidFactory(_data, _listenerHitShowDamage).Create(new Health(_data.Enemies.Hp));
-                    //else
-                    //enemy = new AsteroidFactory(_data, _listenerHitShowDamage).ManipulationWithEnemy(, new Health(_data.Enemies.Hp));
                     enemy = new AsteroidFactory(_data, _listenerHitShowDamage).Create(new Health(_data.Enemies.Hp));
                     break;
                 case "CometView":
@@ -62,16 +58,12 @@ namespace Asteroids.ObjectPool
             if (enemy == null)
             {
                 enemy = CreateEnemy(type);
-                Debug.Log("Added enemy: " + enemy);
                 list.Add(enemy);
             }
             else
             {
-                //подписка на Observer
-                //выдать хп
                 _listenerHitShowDamage.Add(enemy);
                 enemy.Recreate();
-                Debug.Log("Return enemy");
             }
             (enemy as MonoBehaviour).gameObject.SetActive(true);
             return (T)enemy;

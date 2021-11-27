@@ -36,7 +36,7 @@ namespace Asteroids.Enemy
 
         public void Initialization()
         {
-            _playerShipTranform = GameObject.FindGameObjectWithTag("Player").transform;
+            _playerShipTranform = _data.Player.PlayerGO.transform;
 
             var asteroids = Object.FindObjectsOfType<AsteroidView>();
             var comets = Object.FindObjectsOfType<CometView>();
@@ -56,9 +56,10 @@ namespace Asteroids.Enemy
 
         public void FixUpdateble(float deltaTime)
         {
-            _playerShipTranform = GameObject.FindGameObjectWithTag("Player").transform;
+            if(_playerShipTranform != null)
+                _playerShipTranform = _data.Player.PlayerGO.transform;
 
-            if (_enemyShipTranform.gameObject.activeSelf)
+            if (_enemyShipTranform.gameObject.activeSelf && _playerShipTranform.gameObject.activeSelf)
             {
                 _enemyController.Move(_playerShipTranform.position.x - _enemyShipTranform.position.x, _playerShipTranform.position.y - _enemyShipTranform.position.y, deltaTime);
                 _enemyController.Rotation(_playerShipTranform.position - _enemyShipTranform.position);

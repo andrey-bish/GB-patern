@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e16a3b814366e4fb1385090b3d64db, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
+  Camera: {fileID: 0}
+  CameraOffset: -1
   Speed: 10
   Acceleration: 6
   Hp: 100

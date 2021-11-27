@@ -5,7 +5,7 @@ using Asteroids.Interface;
 
 namespace Asteroids
 {
-    public class PlayerInitialize: IInitialization, ICleanup
+    public class PlayerInitialize: IInitialization, IUpdateble, ICleanup
     {
         private MainControllers _mainControllers;
         private LineRenderer _lineRenderer;
@@ -13,6 +13,7 @@ namespace Asteroids
         private Data _data;
         private PlayerView _player;
         private Health _health;
+        private Camera _camera;
         
         private Transform _playerTranform;
 
@@ -40,20 +41,26 @@ namespace Asteroids
             _playerTranform = _player.transform;
             _lineRenderer = _playerTranform.GetComponent<LineRenderer>();
 
-            var camera = Camera.main;
-            camera.transform.parent = _playerTranform;
+            _camera = Camera.main;
+            _camera.transform.position = _playerTranform.position + new Vector3(0, 0, _data.Player.CameraOffset);
 
             var moveTranform = new AccelerationMove(_playerTranform, _data.Player.Speed, _data.Player.Acceleration);
             var rotation = new RotationShip(_playerTranform);
 
             _weapon = new Weapon(_data, _playerTranform);
 
-            var inputController = new InputController(moveTranform, rotation, camera, _weapon, _mainControllers, _data, _playerTranform);
+            var inputController = new InputController(moveTranform, rotation, _camera, _weapon, _mainControllers, _data, _playerTranform);
         }
-
+        public void Updateble(float deltaTime)
+        {
+            _camera.transform.position = _playerTranform.position + new Vector3(0, 0, _data.Player.CameraOffset);
+        }
+        
         public void Cleanup()
         {
             _health.OnDeath -= _player.Death;
         }
+
+        
     }   
 }

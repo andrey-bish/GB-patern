@@ -5,7 +5,7 @@ namespace Asteroids
 {
     class Interpreter
     {
-        private long _inter;
+        private long _score;
         private long _oldScore = 0;
 
         private static Interpreter obj;
@@ -18,24 +18,24 @@ namespace Asteroids
 
         public string Scoring(string value)
         {
-            long.TryParse(value, out _inter);
-            return Interpretation(_inter);
+            long.TryParse(value, out _score);
+            return Interpretation(_score);
         }
 
-        private string Interpretation(long inter)
+        private string Interpretation(long score)
         {
-            inter += _oldScore;
-            _oldScore = inter;
+            score += _oldScore;
+            _oldScore = score;
 
-            if (inter < 0) 
+            if (score < 0) 
                 throw new ArgumentException("Zero in interpreter");
-            if (inter >= 1_000_000_000)
-                return (inter / 1_000_000_000) + "B";
-            if (inter >= 1_000_000)
-                return (inter / 1_000_000) + "M";
-            if (inter >= 1000) 
-                return (inter / 1000) + "K";
-            return inter.ToString();
+            if (score >= 1_000_000_000)
+                return (score / 1_000_000_000) + "B";
+            if (score >= 1_000_000)
+                return (score / 1_000_000) + "M";
+            if (score >= 1000) 
+                return (score / 1000) + "K";
+            return score.ToString();
         }
     }
 }

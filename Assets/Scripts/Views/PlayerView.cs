@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Asteroids.Interface;
-using System;
 using Asteroids.Enemy;
 
 
@@ -9,8 +9,6 @@ namespace Asteroids
     public class PlayerView : MonoBehaviour, IHit, IPlayer
     {
         public event Action<float> OnHitChange = delegate (float f) { };
-
-        [SerializeField] private AudioSource _audioSource;
 
         private Health _health;
 

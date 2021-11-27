@@ -7,7 +7,6 @@ namespace Asteroids
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private Data _data;
-        //[SerializeField] private Camera camera;
 
         private MainControllers _mainControllers;
 

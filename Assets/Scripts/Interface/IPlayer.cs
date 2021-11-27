@@ -1,5 +1,4 @@
-﻿
-namespace Asteroids.Interface
+﻿namespace Asteroids.Interface
 {
     interface IPlayer
     {

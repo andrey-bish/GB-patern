@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
+
 namespace Asteroids.Dataset
 {
     [CreateAssetMenu(fileName = "Player", menuName = "Data/PlayerSettings")]
     public class DataPlayer : ScriptableObject
     {
         [Header("Camera")]
-        public Camera Camera;
         public float CameraOffset;
 
         [Header("Player parametrs")]

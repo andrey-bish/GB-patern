@@ -10,15 +10,14 @@ namespace Asteroids.Modification
 
         #region Fields
 
-        private readonly AudioSource _audioSource;
         private readonly Transform _playerTranform;
         private readonly DataWeapon _dataWeapon;
         private readonly IMuffler _muffler;
 
-        private GameObject _mufflerGO;
-
         private readonly float _damage;
         private readonly float _shotVolumeMuffler;
+
+        private GameObject _mufflerGO;
 
         #endregion
 
@@ -28,7 +27,6 @@ namespace Asteroids.Modification
         public ModificationMuffler(DataWeapon dataWeapon, IMuffler muffler, Transform playerTranform)
         {
             _dataWeapon = dataWeapon;
-            _audioSource = playerTranform.GetComponent<AudioSource>();
             _muffler = muffler;
             _playerTranform = playerTranform;
             _damage = _dataWeapon.DamageWhitMuffler;

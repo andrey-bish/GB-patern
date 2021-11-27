@@ -1,12 +1,12 @@
 ﻿using System;
-using Asteroids.Interface;
-using UnityEngine;
+
 
 namespace Asteroids.Enemy
 {
     public sealed class Health
     {
         public event Action OnDeath;
+
         public float Max { get; }
         public float CurrentHP { get; private set; }
 
@@ -28,7 +28,6 @@ namespace Asteroids.Enemy
 
         public void Damages(float point)
         {
-           
             CurrentHP -= point;
             if (CurrentHP <= 0)
             {

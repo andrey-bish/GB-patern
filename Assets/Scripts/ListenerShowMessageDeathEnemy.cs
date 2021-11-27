@@ -21,12 +21,12 @@ namespace Asteroids
 
         public void Add(IEnemy value)
         {
-            value.TestEnemyDead += ShowMessageDeathEnemy;
+            value.EnemyDead += ShowMessageDeathEnemy;
         }
 
         public void Remove(IEnemy value)
         {
-            value.TestEnemyDead -= ShowMessageDeathEnemy;
+            value.EnemyDead -= ShowMessageDeathEnemy;
         }
 
         private void ShowMessageDeathEnemy(IEnemy enemy)

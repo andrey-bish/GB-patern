@@ -2,7 +2,6 @@
 using UnityEngine;
 using Asteroids.Dataset;
 using Asteroids.Enemy;
-using Asteroids.Models;
 
 
 namespace Asteroids.Fabrics
@@ -26,15 +25,13 @@ namespace Asteroids.Fabrics
             ManipulationWithEnemy(enemy, health);
             return enemy;
         }
+
         private void ManipulationWithEnemy(EnemyShipView enemy, Health health)
         {
             enemy.SetHealth(health);
             enemy.KillPoint = _dataEnemies.EnemyShipKillPoint;
             health.OnDeath += enemy.Death;
-            //enemy.EnemyDead += ConcreteMediator.Get().Notify;
-            //enemy.Score += Interpreter.Get().Scoring;
             _listenerShowMessageDeathEnemy.Add(enemy);
-            //Debug.Log(enemy + " подписан");
             new EnemiesSpawn(_dataPlayer).RandomSpawnLocation(enemy);
         }
     }

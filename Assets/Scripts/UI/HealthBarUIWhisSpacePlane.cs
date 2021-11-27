@@ -8,13 +8,12 @@ namespace Asteroids.UI
 {
     public class HealthBarUIWhisSpacePlane : BaseUI, IHealthBar
     {
-        [SerializeField] private Text _text;
         [SerializeField] private Slider _slider;
+
         private DataPlayer _dataPlayer;
 
         public override void Execute()
         {
-            //_text.text = nameof(BottomLeftUI);
             gameObject.SetActive(true);
         }
         public override void Cancel()

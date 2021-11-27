@@ -2,6 +2,7 @@
 using Asteroids.Interface;
 using Asteroids.Dataset;
 
+
 namespace Asteroids.Modification
 {
     class RemoveMuffler : WeaponModification

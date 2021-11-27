@@ -18,15 +18,14 @@ namespace Asteroids.Enemy
             Speed = speed;
         }
 
-        public void Move(float horizontal, float vertical, float deltaTime) { }
+        public void Move(float horizontal, float vertical, float deltaTime) {throw new System.NotImplementedException();}
 
         public void Move()
         {
-            foreach(var ss in _enemyObjects)
+            foreach(var enemy in _enemyObjects)
             {
-
-                (ss as MonoBehaviour).transform.up = _playerShipTransform.transform.position - (ss as MonoBehaviour).transform.position;
-                (ss as MonoBehaviour).GetComponent<Rigidbody2D>().AddForce((ss as MonoBehaviour).transform.up * Speed, ForceMode2D.Impulse);
+                (enemy as MonoBehaviour).transform.up = _playerShipTransform.transform.position - (enemy as MonoBehaviour).transform.position;
+                (enemy as MonoBehaviour).GetComponent<Rigidbody2D>().AddForce((enemy as MonoBehaviour).transform.up * Speed, ForceMode2D.Impulse);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Asteroids.Interface;
 
+
 namespace Asteroids.Modification
 {
     internal sealed class EditAttackModification : WeaponModification

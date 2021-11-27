@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 using Asteroids.Dataset;
 using Asteroids.Interface;
@@ -28,7 +27,6 @@ namespace Asteroids.UI
         {
             _healthBarUIWhisSpacePlane = mainUI.transform.Find("Canvas/BottomLeftUI").GetComponent<HealthBarUIWhisSpacePlane>();
             _healthBarUISimple = mainUI.transform.Find("Canvas/TopLeftUI").GetComponent<HealthBarUISimple>();
-            //Interpreter.Get().GetScore(mainUI.transform.Find("Canvas/Score").GetComponent<Text>());
             _dataPlayer = data.Player;
             mainControllers.Add(this);
         }
@@ -80,7 +78,6 @@ namespace Asteroids.UI
         }
 
         #endregion
-
 
         public void Initialization()
         {

@@ -1,5 +1,6 @@
 ﻿using Asteroids.Interface;
 
+
 namespace Asteroids.Modification
 {
     class WeaponModification
@@ -15,13 +16,9 @@ namespace Asteroids.Modification
         public void Add(WeaponModification weaponModification)
         {
             if(Next != null)
-            {
                 Next.Add(weaponModification);
-            }
             else
-            {
                 Next = weaponModification;
-            }
         }
 
         public virtual void Handle() => Next?.Handle();

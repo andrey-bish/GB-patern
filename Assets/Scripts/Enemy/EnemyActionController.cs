@@ -36,14 +36,14 @@ namespace Asteroids.Enemy
 
         public void Initialization()
         {
-            _playerShipTranform = GameObject.FindGameObjectWithTag("Player").transform;
+            _playerShipTranform = _data.Player.PlayerGO.transform;
 
-            var asteroid = GameObject.FindObjectOfType<AsteroidView>().transform;
-            var comet = GameObject.FindObjectOfType<CometView>().transform;
-            _enemyShipTranform = GameObject.FindObjectOfType<EnemyShipView>().transform;
+            var asteroids = Object.FindObjectsOfType<AsteroidView>();
+            var comets = Object.FindObjectsOfType<CometView>();
+            _enemyShipTranform = Object.FindObjectOfType<EnemyShipView>().transform;
 
-            new EnemyController(new ImpulsiveMovement(asteroid.transform, _playerShipTranform, _data.Enemies.ImpulseStrenge)).Move();
-            new EnemyController(new ImpulsiveMovement(comet.transform, _playerShipTranform, _data.Enemies.ImpulseStrenge)).Move();
+            new EnemyController(new ImpulsiveMovement(asteroids, _playerShipTranform, _data.Enemies.ImpulseStrenge)).Move();
+            new EnemyController(new ImpulsiveMovement(comets, _playerShipTranform, _data.Enemies.ImpulseStrenge)).Move();
 
             _enemyController = new EnemyController(new EnemyShipMovement(_enemyShipTranform, _playerShipTranform, _data), new EnemyShipRotation(_enemyShipTranform),
                 new EnemyShipShooting(_enemyShipTranform, _playerShipTranform, _data.Weapon, _data.Enemies.RangeAtack));
@@ -56,9 +56,10 @@ namespace Asteroids.Enemy
 
         public void FixUpdateble(float deltaTime)
         {
-            _playerShipTranform = GameObject.FindGameObjectWithTag("Player").transform;
+            if(_playerShipTranform != null)
+                _playerShipTranform = _data.Player.PlayerGO.transform;
 
-            if (_enemyShipTranform.gameObject.activeSelf)
+            if (_enemyShipTranform.gameObject.activeSelf && _playerShipTranform.gameObject.activeSelf)
             {
                 _enemyController.Move(_playerShipTranform.position.x - _enemyShipTranform.position.x, _playerShipTranform.position.y - _enemyShipTranform.position.y, deltaTime);
                 _enemyController.Rotation(_playerShipTranform.position - _enemyShipTranform.position);

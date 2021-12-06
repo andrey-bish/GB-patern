@@ -15,3 +15,4 @@ MonoBehaviour:
   _player: {fileID: 11400000, guid: 9cfb83a10cd6cc849b11537b73e36fd2, type: 2}
   _weapon: {fileID: 11400000, guid: c33c86dbc12dab54f9620bac37d964ff, type: 2}
   _enemies: {fileID: 11400000, guid: f5f502331f7d60b41800390702e3b8e8, type: 2}
+  _ui: {fileID: 11400000, guid: ff47cd120bb2b6d4db8baf111901ab05, type: 2}

@@ -5,29 +5,32 @@ using UnityEngine;
 using Asteroids.Interface;
 using Asteroids.Fabrics;
 using Asteroids.Dataset;
+using Asteroids.Enemy;
 
 
 namespace Asteroids.ObjectPool
 {
     class EnemyObjectPool
     {
-        private static readonly Dictionary<string, HashSet<IEnemy>> _enemyCollection = new Dictionary<string, HashSet<IEnemy>>();
+        public static readonly Dictionary<string, HashSet<IEnemy>> _enemyCollection = new Dictionary<string, HashSet<IEnemy>>();
 
         private static Data _data;
+
+        public static ListenerShowMessageDeathEnemy _listenerHitShowDamage;
 
        private static IEnemy CreateEnemy(string typeEnemies)
         {
             IEnemy enemy = null;
-            switch(typeEnemies)
+            switch (typeEnemies)
             {
                 case "AsteroidView":
-                    enemy = new AsteroidFactory(_data).Create(new Enemy.Health(_data.Enemies.Hp));
+                    enemy = new AsteroidFactory(_data, _listenerHitShowDamage).Create(new Health(_data.Enemies.Hp));
                     break;
                 case "CometView":
-                    enemy = new CometFactory(_data).Create(new Enemy.Health(_data.Enemies.Hp));
+                    enemy = new CometFactory(_data, _listenerHitShowDamage).Create(new Health(_data.Enemies.Hp));
                     break;
                 case "EnemyShipView":
-                    enemy = new EnemyShipFactory(_data).Create(new Enemy.Health(_data.Enemies.Hp));
+                    enemy = new EnemyShipFactory(_data, _listenerHitShowDamage).Create(new Health(_data.Enemies.Hp));
                     break;
                 default:
                     throw new NullReferenceException("The specified enemy type was not found.");
@@ -38,7 +41,9 @@ namespace Asteroids.ObjectPool
         private static HashSet<IEnemy> GetListEnemy(string typeEnemies)
         {
             if (_enemyCollection.ContainsKey(typeEnemies))
+            {   
                 return _enemyCollection[typeEnemies];
+            }
             else
                 return _enemyCollection[typeEnemies] = new HashSet<IEnemy>();
         }
@@ -47,18 +52,18 @@ namespace Asteroids.ObjectPool
         {
             _data = data;
             var type = typeof(T).Name;
+            var list = GetListEnemy(type);
 
-            var enemy = GetListEnemy(type).FirstOrDefault(x => !(x as MonoBehaviour).gameObject.activeSelf);
-
-            if(enemy == null)
+            var enemy = list.FirstOrDefault(x => !(x as MonoBehaviour).gameObject.activeSelf);
+            if (enemy == null)
             {
                 enemy = CreateEnemy(type);
-                _enemyCollection[type].Add(enemy);
+                list.Add(enemy);
             }
             else
             {
-                Debug.Log("Return enemy");
-                
+                _listenerHitShowDamage.Add(enemy);
+                enemy.Recreate();
             }
             (enemy as MonoBehaviour).gameObject.SetActive(true);
             return (T)enemy;

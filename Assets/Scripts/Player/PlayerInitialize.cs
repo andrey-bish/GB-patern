@@ -3,17 +3,26 @@ using Asteroids.Enemy;
 using Asteroids.Dataset;
 using Asteroids.Interface;
 
+
 namespace Asteroids
 {
-    public class PlayerInitialize: IInitialization, IUpdateble
+    public class PlayerInitialize: IInitialization, ICleanup
     {
-        private MainControllers _mainControllers;
-        //private InputController _inputController;
-        private LineRenderer _lineRenderer;
+        #region Fields
+
+        private readonly MainControllers _mainControllers;
+        private readonly Data _data;
+
+        private Transform _playerTransform;
+        private PlayerView _player;
         private IWeapon _weapon;
-        private Data _data;
-        
-        private Transform _playerTranform;
+        private Health _health;
+        private Camera _camera;
+
+        #endregion
+
+
+        #region Constructor
 
         public PlayerInitialize(Data data, MainControllers mainControllers)
         {
@@ -21,35 +30,47 @@ namespace Asteroids
             _mainControllers = mainControllers;
         }
 
+        #endregion
+
+
+        #region Method
+
+        private void InitializePlayer(Health health)
+        {
+            _health = health;
+            _player = Object.Instantiate(_data.Player.PlayerPrefab);
+            _data.Player.PlayerGO = _player.gameObject;
+            _player.SetHealth(_health);
+            _health.OnDeath += _player.Death;
+
+            _playerTransform = _player.transform;
+
+            _camera = Camera.main;
+            _camera.transform.position = _playerTransform.position + new Vector3(0, 0, _data.Player.CameraOffset);
+
+            var moveTranform = new AccelerationMove(_playerTransform, _data.Player.Speed, _data.Player.Acceleration);
+            var rotation = new RotationShip(_playerTransform);
+
+            _weapon = new Weapon(_data, _playerTransform);
+
+            var inputController = new InputController(moveTranform, rotation, _camera, _weapon, _mainControllers, _data, _playerTransform);
+        }
+
+        #endregion
+
+
+        #region Unity Methods
+
         public void Initialization()
         {
-            InitializeObj(new Health(_data.Player.Hp));
-        }
-
-        public void Updateble(float deltaTime)
+            InitializePlayer(new Health(_data.Player.Hp));
+        }        
+        
+        public void Cleanup()
         {
+            _health.OnDeath -= _player.Death;
         }
 
-        //убрать отсюда _inputController, перенести в отдельный контроллер, камеру инициализировать в GM.
-        //player убрать в отдельный класс, чтобы передесть _inputContorller'у в GM
-        public void InitializeObj(Health health)
-        {
-            var player = Object.Instantiate(_data.Player.PlayerPrefab);
-            player.SetHealth(health);
-            health.Death += player.Death;
-
-            _playerTranform = player.transform;
-            _lineRenderer = _playerTranform.GetComponent<LineRenderer>();
-
-            var camera = Camera.main;
-            camera.transform.parent = _playerTranform;
-
-            var moveTranform = new AccelerationMove(_playerTranform, _data.Player.Speed, _data.Player.Acceleration);
-            var rotation = new RotationShip(_playerTranform);
-
-            _weapon = new Weapon(_data, _playerTranform);
-
-            var inputController = new InputController(moveTranform, rotation, camera, _weapon, _mainControllers, _data, _playerTranform);
-        }
-    }   
+        #endregion
+    }
 }

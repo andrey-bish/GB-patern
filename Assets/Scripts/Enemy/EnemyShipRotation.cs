@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Asteroids.Interface;
 
+
 namespace Asteroids.Enemy
 {
     internal sealed class EnemyShipRotation : IRotation

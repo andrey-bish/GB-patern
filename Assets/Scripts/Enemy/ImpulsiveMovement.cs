@@ -8,22 +8,25 @@ namespace Asteroids.Enemy
     {
         public float Speed { get; protected set; }
 
-        private Transform _enemyShipTransform;
+        private IEnemy[] _enemyObjects;
         private Transform _playerShipTransform;
 
-        public ImpulsiveMovement(Transform enemyShipTransform, Transform playerShipTransform, float speed)
+        public ImpulsiveMovement(IEnemy[] enemyShip, Transform playerShipTransform, float speed)
         {
-            _enemyShipTransform = enemyShipTransform;
+            _enemyObjects = enemyShip;
             _playerShipTransform = playerShipTransform;
             Speed = speed;
         }
 
-        public void Move(float horizontal, float vertical, float deltaTime) { }
+        public void Move(float horizontal, float vertical, float deltaTime) {throw new System.NotImplementedException();}
 
         public void Move()
         {
-            _enemyShipTransform.transform.up = _playerShipTransform.transform.position - _enemyShipTransform.transform.position;
-            _enemyShipTransform.GetComponent<Rigidbody2D>().AddForce(_enemyShipTransform.transform.up * Speed, ForceMode2D.Impulse);
+            foreach(var enemy in _enemyObjects)
+            {
+                (enemy as MonoBehaviour).transform.up = _playerShipTransform.transform.position - (enemy as MonoBehaviour).transform.position;
+                (enemy as MonoBehaviour).GetComponent<Rigidbody2D>().AddForce((enemy as MonoBehaviour).transform.up * Speed, ForceMode2D.Impulse);
+            }
         }
     }
 }

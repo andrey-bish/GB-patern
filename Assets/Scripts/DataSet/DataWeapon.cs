@@ -13,13 +13,14 @@ namespace Asteroids.Dataset
         public AudioClip OneShotAudioClip;
         public float Force;
         public float Damage;
+        public float DefaultShotVolume;
         public float FireCooldown;
         public bool IsWeaponLocked;
 
         [Header("Muffler")]
         public GameObject MufflerPrefab;
         public AudioClip OneShotMufflerAudioClip;
-        public float VolumeFireOnMuffler;
+        public float ShotVolumeMuffler;
         public float DamageWhitMuffler;
 
         [Header("Laser Aim Type")]

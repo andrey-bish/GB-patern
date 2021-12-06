@@ -13,6 +13,7 @@ namespace Asteroids.Modification
 
         public void InstallationRemovalMuffler(Data data, Transform playerTranform, IWeapon weapon)
         {
+            
             SetResetMuffler(data, playerTranform, weapon);
         }
 
@@ -22,8 +23,7 @@ namespace Asteroids.Modification
             {
                 isMuffler = !isMuffler;
 
-                var muffler = new Muffler(data.Weapon.OneShotMufflerAudioClip, playerTranform, data.Weapon.MufflerPrefab, data.Weapon.VolumeFireOnMuffler);
-
+                var muffler = new Muffler(data.Weapon.OneShotMufflerAudioClip, playerTranform, data.Weapon.MufflerPrefab, data.Weapon.ShotVolumeMuffler);
                 _modificationWeapon = new ModificationMuffler(data.Weapon, muffler, playerTranform);
                 _modificationWeapon.ApplyModification(weapon);
             }

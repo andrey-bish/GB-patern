@@ -13,11 +13,15 @@ namespace Asteroids
 
         #region Unity Methods
 
-        private void Start()
+        private void Awake()
         {
             _mainControllers = new MainControllers();
-            var InitializationGame = new GameInitialization();
-            InitializationGame.StartGame(_data, _mainControllers);
+            new GameAwake().AwakeGame(_data, _mainControllers);
+        }
+        private void Start()
+        {
+            //_data.Player.Camera = camera;
+            new GameInitialization().StartGame(_data, _mainControllers);
         }
 
         private void Update()
@@ -32,7 +36,7 @@ namespace Asteroids
             _mainControllers.FixUpdateble(deltaTime);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             _mainControllers.Cleanup();
         }

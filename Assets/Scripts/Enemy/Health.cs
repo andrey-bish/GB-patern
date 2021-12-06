@@ -1,36 +1,37 @@
 ﻿using System;
-using UnityEngine;
+
 
 namespace Asteroids.Enemy
 {
     public sealed class Health
     {
-        public event Action Death;
+        public event Action OnDeath;
+
         public float Max { get; }
-        public float Current { get; private set; }
+        public float CurrentHP { get; private set; }
 
         public Health(float max, float current)
         {
             Max = max;
-            Current = current;
+            CurrentHP = current;
         }
         public Health(float current)
         {
-            Current = current;
+            CurrentHP = current;
+            Max = current;
         }
 
-        public void ChangeCurrentHealth(float hp)
+        public void SetHp(float? hp = null)
         {
-            Current = hp;
+            CurrentHP = hp ?? Max;
         }
 
         public void Damages(float point)
         {
-            Current -= point;
-            Debug.Log("Current HP " + Current);
-            if(Current <= 0)
+            CurrentHP -= point;
+            if (CurrentHP <= 0)
             {
-                Death?.Invoke();
+                OnDeath?.Invoke();
             }
         }
     }

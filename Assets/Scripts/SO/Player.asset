@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e16a3b814366e4fb1385090b3d64db, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
+  Camera: {fileID: 0}
+  CameraOffset: -1
   Speed: 10
   Acceleration: 6
   Hp: 100
+  TimeRecording: 5
   PlayerPrefab: {fileID: 8672201786504361787, guid: d25e2ae89f4ff2f4ca9fb08fa6ea29ee,
     type: 3}
+  PlayerGO: {fileID: 0}

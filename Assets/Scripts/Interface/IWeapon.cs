@@ -11,9 +11,13 @@ namespace Asteroids.Interface
 
         void SetDamage(float damage);
 
+        void SetShotVolume(float shotVolume);
+
         void SetAimLaser(Material aimLaserMaterial);
 
-        void SetWeaponLockeD(bool isWeaponLocked);
+        void SetWeaponLocked(bool isWeaponLocked);
+
+        void SetFireFireCooldown(float fireCooldown);
 
     }
 }

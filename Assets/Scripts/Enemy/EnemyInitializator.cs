@@ -1,34 +1,27 @@
 ﻿using Asteroids.Interface;
 using Asteroids.ObjectPool;
 using Asteroids.Dataset;
+using Asteroids.UI;
 
 
 namespace Asteroids.Enemy
 {
     class EnemyInitializator : IInitialization
     {
-        private readonly IEnemiesFactory _enemiesFactory;
-
-        private MainControllers _mainControllers;
         private readonly Data _data;
 
+        private MainControllers _mainControllers;
 
-        public EnemyInitializator(IEnemiesFactory enemiesFactory, MainControllers mainControllers, Data data)
+
+        public EnemyInitializator( MainControllers mainControllers, Data data)
         {
-            _enemiesFactory = enemiesFactory;
             _mainControllers = mainControllers;
             _data = data;
         }
 
         public void Initialization()
         {
-            //Создание противника через статический метод
-            //EnemyClass.CreateAsteroidEnemy(new Health(40.0f));
-
-            //Создание противника через фабрику
-            //_enemiesFactory.Create(new Health(40.0f));
-
-            //Создание противника в PoolObject'е
+            HandOverListenerDeathEnemy(new ListenerShowMessageDeathEnemy(_data));
             CreateEnemiesAndAddToObjectPool();
             new EnemyActionController(_mainControllers, _data);
         }
@@ -38,6 +31,12 @@ namespace Asteroids.Enemy
             EnemyObjectPool.GetEnemy<AsteroidView>(_data);
             EnemyObjectPool.GetEnemy<CometView>(_data);
             EnemyObjectPool.GetEnemy<EnemyShipView>(_data);
+        }
+
+        private void HandOverListenerDeathEnemy(ListenerShowMessageDeathEnemy listenerShowMessageDeathEnemy)
+        {
+            EnemyObjectPool._listenerHitShowDamage = listenerShowMessageDeathEnemy;
+            new ShowMessageKillEnemy().GetMainController(_mainControllers, listenerShowMessageDeathEnemy);
         }
     }
 }
